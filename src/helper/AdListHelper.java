@@ -14,10 +14,6 @@ import entity.Ad;
 import entity.AdList;
 
 public abstract class AdListHelper extends Helper {
-	// Логический путь к файлу, в котором хранятся данные об объявлени
-	private static final String ADS_FILENAME = "WEB-INF/ads.dat";
-	// Полный путь к файлу, в котором хранятся данные об объявлениях
-	private static String ADS_PATH = null;
 
 	public AdListHelper() throws NamingException {
 		super();
@@ -33,12 +29,14 @@ public abstract class AdListHelper extends Helper {
 			if (rs.first()) {
 				Ad ad = new Ad();
 				while (rs.next()) {
-					ad.setAuthorId(authorId);
-					ad.setAuthor(author);
-					ad.setBody(body);
-					ad.setId(id);
-					ad.setLastModified(lastModified);
-					ad.setSubject(subject);
+					ad.setAuthorId(rs.getInt("authorId"));
+					// ad.setAuthor(User);
+					ad.setBody(rs.getString("body"));
+					ad.setId(rs.getInt("id"));
+					ad.setAuthorId(rs.getInt("authorId"));
+					ad.setLastModified(rs.getLong("lastModified"));
+					ad.setSubject(rs.getString("subject"));
+					list.updateAd(ad);
 				}
 			} else {
 				throw new Exception();
@@ -53,15 +51,9 @@ public abstract class AdListHelper extends Helper {
 	}
 
 	public static void saveAdList(AdList ads) {
-		// TODO Auto-generated method stub
 		synchronized (ads) {
 			try {
-				// Создаем объектный поток вывода на основе файлового
-				// потока
-				@SuppressWarnings("resource")
-				ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(ADS_PATH));
-				// Записываем содержимое объекта в поток
-				out.writeObject(ads);
+
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
