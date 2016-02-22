@@ -1,9 +1,6 @@
 package helper;
 
 import javax.naming.NamingException;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import javax.servlet.ServletContext;
 
 import java.sql.Connection;
