@@ -4,9 +4,15 @@ import javax.naming.NamingException;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 import javax.servlet.ServletContext;
 
+import entity.Ad;
+import entity.AdList;
+import entity.User;
 import entity.UserList;
 
 public abstract class UserListHelper extends Helper {
@@ -21,13 +27,25 @@ public abstract class UserListHelper extends Helper {
 
 	public static UserList readUserList(ServletContext servletContext) {
 		try {
-			// Определяем физический путь к файлу
-			USERS_PATH = servletContext.getRealPath(USERS_FILENAME);
-			// Создаем объектный поток ввода на основе файлового потока
-			@SuppressWarnings("resource")
-			ObjectInputStream in = new ObjectInputStream(new FileInputStream(USERS_PATH));
-			return (UserList) in.readObject();
-			// return (UserList)in.readObject();
+			try {
+				Connection conn = Helper.getConnection();
+				Statement st = conn.createStatement();
+				ResultSet rs = st.executeQuery("select * from Ads");
+				UserList list = new UserList();
+				if (rs.first()) {
+					User user = new User();
+					while (rs.next()) {
+						user.setId(id);
+						user.setName(name);
+						user.setEmail(email);
+						user.setLogin(login);
+						user.setPassword(password);
+					}
+				} else {
+					throw new Exception();
+				}
+				return list;
+
 		} catch (Exception e) {
 			// Если возникли проблемы с чтением из файла, возвращаем
 			// пустой список

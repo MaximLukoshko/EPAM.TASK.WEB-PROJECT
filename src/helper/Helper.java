@@ -7,6 +7,10 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+/**
+ * @author maximus
+ *
+ */
 public class Helper {
 	private static Connection conn;
 
@@ -24,14 +28,8 @@ public class Helper {
 			}
 		}
 	}
-//
-//	public static void main(String[] args) {
-//		try {
-//			Helper helper = new Helper();
-//		} catch (NamingException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//
-//	}
+
+	public static synchronized Connection getConnection() {
+		return conn;
+	}
 }
