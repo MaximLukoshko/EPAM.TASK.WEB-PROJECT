@@ -3,18 +3,11 @@ package servlet;
 import java.sql.Connection;
 
 import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.sql.DataSource;
-
-import entity.Ad;
-import entity.AdList;
-import entity.UserList;
-import helper.AdListHelper;
-import helper.UserListHelper;
 
 /**
  * Servlet implementation class StartupServlet
@@ -33,7 +26,7 @@ public class StartupServlet extends HttpServlet {
 		DataSource ds;
 		try {
 			initContext = new InitialContext();
-			ds = (DataSource) initContext.lookup("java:comp/env/jdbc/jsp");
+			ds = (DataSource) initContext.lookup("java:comp/env/jdbc/epam_test_web");
 			conn = ds.getConnection();
 			getServletContext().setAttribute("databaseConnection", conn);
 			System.out.println("Server is started");
