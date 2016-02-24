@@ -1,6 +1,10 @@
 package tag;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -47,12 +51,36 @@ public class GetAds extends SimpleTagSupport {
 	@Override
 	public void doTag() throws JspException, IOException {
 		// Извлечь из контекста приложения общий список объявлений
+
+		final Connection conn = (Connection) getJspContext().getAttribute("databaseConnection",
+				PageContext.APPLICATION_SCOPE);
 		final AdList adList = (AdList) getJspContext().getAttribute("ads", PageContext.APPLICATION_SCOPE);
+
+		Statement st = null;
+		try {
+			st = conn.createStatement();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		ResultSet rs = null;
 		if (id > 0) {
-			for (Ad ad : adList.getAds()) {
-				if (ad.getId() == id) {
+			try {
+				rs = st.executeQuery("select * from ads where id='" + id + "';");
+				if (rs.first()) {
+					Ad ad = new Ad();
+					ad.setAuthorId(rs.getInt("authorId"));
+					// ad.setAuthor(User);
+					ad.setBody(rs.getString("body"));
+					ad.setId(rs.getInt("id"));
+					ad.setAuthorId(rs.getInt("authorId"));
+					ad.setLastModified(rs.getLong("lastModified"));
+					ad.setSubject(rs.getString("subject"));
 					getJspContext().setAttribute(GetAds.this.var, ad, PageContext.PAGE_SCOPE);
 				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		} else {
 			final User authUser = (User) getJspContext().getAttribute("authUser", PageContext.SESSION_SCOPE);

@@ -21,9 +21,9 @@ public class StartupServlet extends HttpServlet {
 	 */
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
-		Connection conn;
 		InitialContext initContext;
 		DataSource ds;
+		Connection conn;
 		try {
 			initContext = new InitialContext();
 			ds = (DataSource) initContext.lookup("java:comp/env/jdbc/epam_test_web");
