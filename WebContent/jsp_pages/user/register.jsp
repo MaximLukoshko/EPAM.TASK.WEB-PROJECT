@@ -43,7 +43,7 @@
 				<tr>
 					<td><input type="submit" value="Sign In"></td>
 					<td><input type="button" value="Cancel"
-						onclick="window.location='<c:url value="../index.jsp" />';"></td>
+						onclick="window.location='<c:remove var="userData" scope="session" /><c:url value="../index.jsp" />';"></td>
 				</tr>
 
 			</table>
