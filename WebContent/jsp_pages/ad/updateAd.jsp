@@ -49,7 +49,7 @@
 				<tr>
 					<td><input type="submit" value="Save"></td>
 					<td><input type="button" value="Cancel"
-						onclick="window.location='<c:url value="../index.jsp" />';"></td>
+						onclick="window.location='<c:url value="/jsp_pages/user/cabinet.jsp" />';"></td>
 				</tr>
 
 			</table>
