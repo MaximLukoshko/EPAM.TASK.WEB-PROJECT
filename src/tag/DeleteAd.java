@@ -6,9 +6,7 @@ import java.sql.SQLException;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 import entity.Ad;
-import entity.AdList;
 import entity.User;
-import helper.AdListHelper;
 
 public class DeleteAd extends TagForGettingConnection {
 
