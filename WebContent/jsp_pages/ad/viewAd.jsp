@@ -21,7 +21,7 @@
 		</h1>
 		<div style="text-decoration: italic; font-size: 10px;">
 			Author:
-			<c:out value="${ad.author.name }" />
+			<c:out value="${ad.authorName }" />
 			, last-modified date:
 			<fmt:formatDate value="${ad.lastModifiedDate }"
 				pattern="hh:mm:ss dd.MM.yyyy" />
