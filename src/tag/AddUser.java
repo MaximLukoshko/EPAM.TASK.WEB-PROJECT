@@ -22,16 +22,23 @@ public class AddUser extends TagForGettingConnection {
 		// Проверить, что логин не пустой
 		if (user.getLogin() == null || user.getLogin().equals("")) {
 			errorMessage = "Login cannot be empty!";
+		} else if (user.getName() == null || user.getName().equals("")) {
+			errorMessage = "User name can not be empty!";
 		} else {
-			// Проверить, что имя не пустое
-			if (user.getName() == null || user.getName().equals("")) {
-				errorMessage = "User name can not be empty!";
+			super.doTag();
+			try {
+				rs = st.executeQuery("select * from Users where login='" + user.getLogin() + "';");
+				if(rs.first()){
+					errorMessage = "This Login is busy! Use another one";
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 		// Если ошибки не было - добавить пользователя
 		if (errorMessage == null) {
 			// Непосредственное добавление пользователя делает UserList
-			super.doTag();
 			try {
 				System.out.println("insert into Users values (null, '" + user.getName() + "', '" + user.getEmail()
 						+ "', '" + user.getLogin() + "', '" + user.getPassword() + "');");
