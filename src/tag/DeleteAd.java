@@ -1,6 +1,7 @@
 package tag;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
@@ -21,11 +22,8 @@ public class DeleteAd extends TagForGettingConnection {
 
 	@Override
 	public void doTag() throws JspException, IOException {
-		super.doTag();
 		// Изначально описание ошибки = null (т.е. ошибки нет)
 		String errorMessage = null;
-		// Извлечь из контекста приложения общий список объявлений
-		AdList adList = (AdList) getJspContext().getAttribute("ads", PageContext.APPLICATION_SCOPE);
 		// Извлечь из сессии описание текущего пользователя
 		User currentUser = (User) getJspContext().getAttribute("authUser", PageContext.SESSION_SCOPE);
 		// Проверить, что объявление изменяется его автором, а не чужаком
@@ -33,8 +31,13 @@ public class DeleteAd extends TagForGettingConnection {
 			errorMessage = "You can not change this add";
 		}
 		if (errorMessage == null) {
-			adList.deleteAd(ad);
-			AdListHelper.saveAdList(adList);
+			super.doTag();
+			try {
+				st.executeUpdate("delete from Ads where id='" + ad.getId() + "';");
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		getJspContext().setAttribute("errorMessage", errorMessage, PageContext.SESSION_SCOPE);
 
