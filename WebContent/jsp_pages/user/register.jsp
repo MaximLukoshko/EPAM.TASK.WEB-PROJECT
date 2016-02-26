@@ -3,6 +3,7 @@
 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="comp" tagdir="/WEB-INF/tags/"%>
+<%@taglib prefix="my" uri="/WEB-INF/taglibs/taglib.tld"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -15,6 +16,8 @@
 	<comp:layout1Column>
 		<h1>Register new user</h1>
 		<comp:errorMessage />
+		<my:clearErrorMessage />
+
 		<form action="doRegister.jsp" method="post">
 			<table>
 				<tr>
