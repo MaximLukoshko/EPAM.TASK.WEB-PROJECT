@@ -29,7 +29,7 @@ public class StartupServlet extends HttpServlet {
 			ds = (DataSource) initContext.lookup("java:comp/env/jdbc/epam_test_web");
 			conn = ds.getConnection();
 			getServletContext().setAttribute("databaseConnection", conn);
-			System.out.println("Server is started");
+			System.out.println("Connection to Database successdully started");
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Connection to Database failed");

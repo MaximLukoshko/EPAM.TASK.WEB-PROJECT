@@ -4,6 +4,6 @@
     <Resource name="jdbc/epam_test_web" auth="Container"
         type="javax.sql.DataSource" username="maxim" password="maxim"
         driverClassName="com.mysql.jdbc.Driver"
-        url="jdbc:mysql://localhost:3306/users"
+        url="jdbc:mysql://localhost:3306/UsersAdsDB"
         maxActive="10" maxIdle="4" />
 </Context>

@@ -48,13 +48,12 @@ public abstract class AdListHelper extends Helper {
 	}
 
 	public static void saveAdList(AdList ads) {
-		synchronized (ads) {
-			try {
 
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+		try {
+
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-
 	}
+
 }

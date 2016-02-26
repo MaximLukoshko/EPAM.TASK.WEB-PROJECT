@@ -14,7 +14,6 @@ import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 
 import entity.Ad;
-import entity.AdList;
 import entity.User;
 
 public class GetAds extends SimpleTagSupport {
@@ -54,7 +53,6 @@ public class GetAds extends SimpleTagSupport {
 
 		final Connection conn = (Connection) getJspContext().getAttribute("databaseConnection",
 				PageContext.APPLICATION_SCOPE);
-		final AdList adList = (AdList) getJspContext().getAttribute("ads", PageContext.APPLICATION_SCOPE);
 
 		Statement st = null;
 		try {
@@ -87,14 +85,31 @@ public class GetAds extends SimpleTagSupport {
 			// В этом списке будут содержаться только отобранные объявления
 			ArrayList<Ad> sortedList = new ArrayList<Ad>();
 
-			for (Ad ad : adList.getAds()) {
-				// Если режим фильтрации собственные сообщений выключен
-				// или текущее объявление принадлежит пользователю
-				if (!"my".equals(range) || (authUser != null && authUser.getId() == ad.getAuthorId())) {
-					// Добавить объявление в список
-					sortedList.add(ad);
+			try {
+				String query = new String("select * from ads");
+				if ("my".equals(range)) {
+					query += " where authorId='" + authUser.getId() + "'";
 				}
+				query += ";";
+				rs = st.executeQuery(query);
+				if (rs.first()) {
+					do {
+						Ad ad = new Ad();
+						ad.setAuthorId(rs.getInt("authorId"));
+						// ad.setAuthor(User);
+						ad.setBody(rs.getString("body"));
+						ad.setId(rs.getInt("id"));
+						ad.setAuthorId(rs.getInt("authorId"));
+						ad.setLastModified(rs.getLong("lastModified"));
+						ad.setSubject(rs.getString("subject"));
+						sortedList.add(ad);
+					} while (rs.next());
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
+
 			Comparator<Ad> comparator = new Comparator<Ad>() {
 
 				@Override
@@ -122,7 +137,6 @@ public class GetAds extends SimpleTagSupport {
 			} else {
 				Collections.sort(sortedList, comparator);
 			}
-
 			getJspContext().setAttribute(GetAds.this.var, sortedList, PageContext.PAGE_SCOPE);
 		}
 	}
