@@ -1,13 +1,11 @@
 package tag;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 import entity.User;
-import entity.UserList;
-import entity.UserList.UserExistsException;
-import helper.UserListHelper;
 
 public class AddUser extends TagForGettingConnection {
 
@@ -22,8 +20,6 @@ public class AddUser extends TagForGettingConnection {
 		super.doTag();
 		// Изначально описание ошибки = null (т.е. ошибки нет)
 		String errorMessage = null;
-		// Извлечь из контекста приложения общий список пользователей
-		UserList userList = (UserList) getJspContext().getAttribute("users", PageContext.APPLICATION_SCOPE);
 		// Проверить, что логин не пустой
 		if (user.getLogin() == null || user.getLogin().equals("")) {
 			errorMessage = "Login cannot be empty!";
@@ -35,14 +31,15 @@ public class AddUser extends TagForGettingConnection {
 		}
 		// Если ошибки не было - добавить пользователя
 		if (errorMessage == null) {
+			// Непосредственное добавление пользователя делает UserList
 			try {
-				// Непосредственное добавление пользователя делает UserList
-				userList.addUser(user);
-				// Записать обновлѐнный список пользователей в файл
-				UserListHelper.saveUserList(userList);
-			} catch (UserExistsException e) {
-				// Ошибка - пользователь с таким логином уже
-				errorMessage = "such username is already used!";
+				System.out.println("insert into Users values (null, '" + user.getName() + "', '" + user.getEmail()
+						+ "', '" + user.getLogin() + "', '" + user.getPassword() + "');");
+				st.executeUpdate("insert into Users values (null, '" + user.getName() + "', '" + user.getEmail()
+						+ "', '" + user.getLogin() + "', '" + user.getPassword() + "');");
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 		// Сохранить описание ошибки (текст или null) в сессии
