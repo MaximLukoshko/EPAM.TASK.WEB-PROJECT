@@ -4,14 +4,12 @@ import java.io.IOException;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
-import javax.servlet.jsp.tagext.SimpleTagSupport;
-
 import entity.Ad;
 import entity.AdList;
 import entity.User;
 import helper.AdListHelper;
 
-public class DeleteAd extends SimpleTagSupport {
+public class DeleteAd extends TagForGettingConnection {
 
 	// Поле данных для атрибута
 	private Ad ad;
@@ -23,6 +21,7 @@ public class DeleteAd extends SimpleTagSupport {
 
 	@Override
 	public void doTag() throws JspException, IOException {
+		super.doTag();
 		// Изначально описание ошибки = null (т.е. ошибки нет)
 		String errorMessage = null;
 		// Извлечь из контекста приложения общий список объявлений

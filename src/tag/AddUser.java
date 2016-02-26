@@ -4,14 +4,12 @@ import java.io.IOException;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
-import javax.servlet.jsp.tagext.SimpleTagSupport;
-
 import entity.User;
 import entity.UserList;
 import entity.UserList.UserExistsException;
 import helper.UserListHelper;
 
-public class AddUser extends SimpleTagSupport {
+public class AddUser extends TagForGettingConnection {
 
 	private User user;
 
@@ -21,6 +19,7 @@ public class AddUser extends SimpleTagSupport {
 
 	@Override
 	public void doTag() throws JspException, IOException {
+		super.doTag();
 		// Изначально описание ошибки = null (т.е. ошибки нет)
 		String errorMessage = null;
 		// Извлечь из контекста приложения общий список пользователей

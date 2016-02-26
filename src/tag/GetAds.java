@@ -1,22 +1,17 @@
 package tag;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
-import javax.servlet.jsp.tagext.SimpleTagSupport;
-
 import entity.Ad;
 import entity.User;
 
-public class GetAds extends SimpleTagSupport {
+public class GetAds extends TagForGettingConnection {
 	private int id = 0;
 	// Поле данных для атрибута range (диапазон объявлений)
 	private String range;
@@ -49,19 +44,7 @@ public class GetAds extends SimpleTagSupport {
 
 	@Override
 	public void doTag() throws JspException, IOException {
-		// Извлечь из контекста приложения общий список объявлений
-
-		final Connection conn = (Connection) getJspContext().getAttribute("databaseConnection",
-				PageContext.APPLICATION_SCOPE);
-
-		Statement st = null;
-		try {
-			st = conn.createStatement();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		ResultSet rs = null;
+		super.doTag();
 		if (id > 0) {
 			try {
 				rs = st.executeQuery("select * from ads where id='" + id + "';");

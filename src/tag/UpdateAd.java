@@ -5,14 +5,12 @@ import java.util.Calendar;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
-import javax.servlet.jsp.tagext.SimpleTagSupport;
-
 import entity.Ad;
 import entity.AdList;
 import entity.User;
 import helper.AdListHelper;
 
-public class UpdateAd extends SimpleTagSupport {
+public class UpdateAd extends TagForGettingConnection {
 
 	private Ad ad;
 
@@ -22,7 +20,7 @@ public class UpdateAd extends SimpleTagSupport {
 
 	@Override
 	public void doTag() throws JspException, IOException {
-
+		super.doTag();
 		String errorMessage = null;
 		AdList adList = (AdList) getJspContext().getAttribute("ads", PageContext.APPLICATION_SCOPE);
 		User currentUser = (User) getJspContext().getAttribute("authUser", PageContext.SESSION_SCOPE);
