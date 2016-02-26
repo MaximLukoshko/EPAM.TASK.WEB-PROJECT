@@ -67,11 +67,11 @@
 								</c:if></td>
 						</tr>
 					</table></td>
-				<td><c:out value="${ad.author.name}" /></td>
+				<td><c:out value="${ad.authorName}" /></td>
 				<td><fmt:formatDate pattern="hh:mm:ss dd-MM-yyyy"
 						value="${ad.lastModifiedDate}" /></td>
 			</tr>
-		</c:forEach> 
+		</c:forEach>
 
 	</table>
 </c:if>

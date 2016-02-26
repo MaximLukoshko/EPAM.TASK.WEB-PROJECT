@@ -10,7 +10,6 @@ public class AdList extends ListOfIdentifiables<Ad> {
 	public synchronized Ad addAd(User author, Ad ad) {
 		// Связать автора с объявлением
 		ad.setAuthorId(author.getId());
-		ad.setAuthor(author);
 		// Выбрать следующий незанятый id для объявления
 		ad.setId(getNextId());
 		// Добавить сообщение в список

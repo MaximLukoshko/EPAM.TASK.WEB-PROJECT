@@ -1,14 +1,13 @@
 package tag;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Calendar;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 import entity.Ad;
-import entity.AdList;
 import entity.User;
-import helper.AdListHelper;
 
 public class UpdateAd extends TagForGettingConnection {
 
@@ -22,7 +21,6 @@ public class UpdateAd extends TagForGettingConnection {
 	public void doTag() throws JspException, IOException {
 		super.doTag();
 		String errorMessage = null;
-		AdList adList = (AdList) getJspContext().getAttribute("ads", PageContext.APPLICATION_SCOPE);
 		User currentUser = (User) getJspContext().getAttribute("authUser", PageContext.SESSION_SCOPE);
 
 		if (ad.getSubject() == null || ad.getSubject().equals("")) {
@@ -34,12 +32,21 @@ public class UpdateAd extends TagForGettingConnection {
 		}
 		if (errorMessage == null) {
 			ad.setLastModified(Calendar.getInstance().getTimeInMillis());
+			super.doTag();
+			String querry;
 			if (ad.getId() == 0) {
-				adList.addAd(currentUser, ad);
+				querry = "insert into Ads values (null, '" + ad.getAuthorId() + "', '" + ad.getAuthorName() + "', '"
+						+ ad.getSubject() + "', '" + ad.getBody() + "', '" + ad.getLastModified() + "');";
 			} else {
-				adList.updateAd(ad);
+				querry = "update Ads set subject='" + ad.getSubject() + "', body='" + ad.getBody() + "', lastModified='"
+						+ ad.getLastModified() + "' where id='" + ad.getId() + "';";
 			}
-			AdListHelper.saveAdList(adList);
+			try {
+				st.executeUpdate(querry);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		getJspContext().setAttribute("errorMessage", errorMessage, PageContext.SESSION_SCOPE);
 	}

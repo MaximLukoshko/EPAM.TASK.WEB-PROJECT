@@ -47,14 +47,14 @@ public class GetAds extends TagForGettingConnection {
 		super.doTag();
 		if (id > 0) {
 			try {
-				rs = st.executeQuery("select * from ads where id='" + id + "';");
+				rs = st.executeQuery("select * from Ads where id='" + id + "';");
 				if (rs.first()) {
 					Ad ad = new Ad();
 					ad.setAuthorId(rs.getInt("authorId"));
-					// ad.setAuthor(User);
 					ad.setBody(rs.getString("body"));
 					ad.setId(rs.getInt("id"));
 					ad.setAuthorId(rs.getInt("authorId"));
+					ad.setAuthorName(rs.getString("authorName"));
 					ad.setLastModified(rs.getLong("lastModified"));
 					ad.setSubject(rs.getString("subject"));
 					getJspContext().setAttribute(GetAds.this.var, ad, PageContext.PAGE_SCOPE);
@@ -69,7 +69,7 @@ public class GetAds extends TagForGettingConnection {
 			ArrayList<Ad> sortedList = new ArrayList<Ad>();
 
 			try {
-				String query = new String("select * from ads");
+				String query = new String("select * from Ads");
 				if ("my".equals(range)) {
 					query += " where authorId='" + authUser.getId() + "'";
 				}
@@ -79,10 +79,9 @@ public class GetAds extends TagForGettingConnection {
 					do {
 						Ad ad = new Ad();
 						ad.setAuthorId(rs.getInt("authorId"));
-						// ad.setAuthor(User);
 						ad.setBody(rs.getString("body"));
 						ad.setId(rs.getInt("id"));
-						ad.setAuthorId(rs.getInt("authorId"));
+						ad.setAuthorName(rs.getString("authorName"));
 						ad.setLastModified(rs.getLong("lastModified"));
 						ad.setSubject(rs.getString("subject"));
 						sortedList.add(ad);
@@ -104,7 +103,7 @@ public class GetAds extends TagForGettingConnection {
 					} else if (GetAds.this.sort != null && GetAds.this.sort.equals("subject")) {
 						result = ad1.getSubject().compareTo(ad2.getSubject());
 					} else {
-						result = ad1.getAuthor().getName().compareTo(ad2.getAuthor().getName());
+						result = ad1.getAuthorName().compareTo(ad2.getAuthorName());
 					}
 
 					if (GetAds.this.dir == 'd') {
@@ -115,6 +114,7 @@ public class GetAds extends TagForGettingConnection {
 				}
 
 			};
+
 			if (sortedList.size() == 0) {
 				sortedList = null;
 			} else {

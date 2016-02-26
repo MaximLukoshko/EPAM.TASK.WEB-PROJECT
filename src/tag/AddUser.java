@@ -17,7 +17,6 @@ public class AddUser extends TagForGettingConnection {
 
 	@Override
 	public void doTag() throws JspException, IOException {
-		super.doTag();
 		// Изначально описание ошибки = null (т.е. ошибки нет)
 		String errorMessage = null;
 		// Проверить, что логин не пустой
@@ -32,6 +31,7 @@ public class AddUser extends TagForGettingConnection {
 		// Если ошибки не было - добавить пользователя
 		if (errorMessage == null) {
 			// Непосредственное добавление пользователя делает UserList
+			super.doTag();
 			try {
 				System.out.println("insert into Users values (null, '" + user.getName() + "', '" + user.getEmail()
 						+ "', '" + user.getLogin() + "', '" + user.getPassword() + "');");

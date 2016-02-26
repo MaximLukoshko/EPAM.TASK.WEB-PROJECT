@@ -3,11 +3,9 @@ package tag;
 import java.io.IOException;
 import java.sql.SQLException;
 
-import javax.jws.soap.SOAPBinding.Use;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 import entity.User;
-import entity.UserList;
 
 public class Login extends TagForGettingConnection {
 	// Поле данных для атрибута login
@@ -43,6 +41,7 @@ public class Login extends TagForGettingConnection {
 				} else {
 					User user = new User();
 					user.setId(rs.getInt("id"));
+					System.out.println(user.getId());
 					user.setName(rs.getString("name"));
 					user.setEmail(rs.getString("email"));
 					user.setLogin(rs.getString("login"));

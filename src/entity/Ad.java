@@ -15,7 +15,7 @@ public class Ad implements Identifiable, Serializable {
 	// Автор сообщения (id)
 	private int authorId;
 	// Автор сообщения (ссылка, не сериализуется)
-	transient private User author;
+	transient private String authorName;
 	// Последнее время модификации сообщения
 	private Long lastModified;
 	// Последнее время модификации сообщения как объект Date
@@ -49,14 +49,6 @@ public class Ad implements Identifiable, Serializable {
 		this.authorId = authorId;
 	}
 
-	public User getAuthor() {
-		return author;
-	}
-
-	public void setAuthor(User author) {
-		this.author = author;
-	}
-
 	public Long getLastModified() {
 		return lastModified;
 	}
@@ -83,6 +75,14 @@ public class Ad implements Identifiable, Serializable {
 	@Override
 	public int getId() {
 		return id;
+	}
+
+	public String getAuthorName() {
+		return authorName;
+	}
+
+	public void setAuthorName(String authorName) {
+		this.authorName = authorName;
 	}
 
 }

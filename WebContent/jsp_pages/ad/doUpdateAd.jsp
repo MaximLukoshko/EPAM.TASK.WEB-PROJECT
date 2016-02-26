@@ -19,6 +19,10 @@
 	</c:otherwise>
 </c:choose>
 
+<jsp:setProperty property="authorName"
+	value="${sessionScope.authUser.name }" name="adData" />
+<jsp:setProperty property="authorId"
+	value="${sessionScope.authUser.id }" name="adData" />
 <jsp:setProperty property="subject" name="adData" />
 <jsp:setProperty property="body" name="adData" />
 <my:updateAd ad="${adData }" />
