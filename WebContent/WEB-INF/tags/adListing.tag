@@ -54,17 +54,17 @@
 			</td>
 		</tr>
 		<c:forEach items="${adListing}" var="ad">
-			<tr valign="top" align="center">
-				<td><table>
+			<tr valign="middle" align="center">
+				<td><table style="width: 100%">
 						<tr valign="middle" align="center">
-							<td style="width: 30%;"><a
+							<td><a
 								href="<c:url value="/jsp_pages/ad/viewAd.jsp"><c:param name="id" value="${ad.id}" /></c:url>">
 									<c:out value="${ad.subject}" />
 							</a></td>
-							<td><c:if test="${editMode==true}">
-									<comp:editButton ad="${ad}" />
-									<comp:deleteButton ad="${ad}" />
-								</c:if></td>
+							<c:if test="${editMode==true}">
+								<td style="width: 30%;"><comp:editButton ad="${ad}" /> <comp:deleteButton
+										ad="${ad}" /></td>
+							</c:if>
 						</tr>
 					</table></td>
 				<td><c:out value="${ad.authorName}" /></td>
@@ -72,6 +72,5 @@
 						value="${ad.lastModifiedDate}" /></td>
 			</tr>
 		</c:forEach>
-
 	</table>
 </c:if>
