@@ -1,7 +1,9 @@
 package tag;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
+import javax.jws.soap.SOAPBinding.Use;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 import entity.User;
@@ -24,17 +26,32 @@ public class Login extends TagForGettingConnection {
 
 	@Override
 	public void doTag() throws JspException, IOException {
-		super.doTag();
 		String errorMessage = null;
-		UserList userList = (UserList) getJspContext().getAttribute("users", PageContext.APPLICATION_SCOPE);
 		if (login == null || login.equals("")) {
 			errorMessage = "Login can not be empty!";
 		} else {
-			User user = userList.findUser(login);
-			if (user == null || !user.getPassword().equals(password)) {
-				errorMessage = "Check login/passowrd";
-			} else {
-				getJspContext().setAttribute("authUser", user, PageContext.SESSION_SCOPE);
+			super.doTag();
+			try {
+				rs = st.executeQuery("select * from Users where login='" + login + "';");
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
+				if (!rs.first() || !rs.getString("password").equals(password)) {
+					errorMessage = "Check login/passowrd";
+				} else {
+					User user = new User();
+					user.setId(rs.getInt("id"));
+					user.setName(rs.getString("name"));
+					user.setEmail(rs.getString("email"));
+					user.setLogin(rs.getString("login"));
+					user.setPassword(rs.getString("password"));
+					getJspContext().setAttribute("authUser", user, PageContext.SESSION_SCOPE);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 		getJspContext().setAttribute("errorMessage", errorMessage, PageContext.SESSION_SCOPE);
