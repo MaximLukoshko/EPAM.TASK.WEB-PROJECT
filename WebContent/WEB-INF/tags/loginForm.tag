@@ -7,14 +7,15 @@
 		<table>
 			<tr>
 				<td>Login:</td>
-				<td><input type="text" name="login" value=""></td>
+				<td><input type="text" name="login"
+					value="${sessionScope.userLogin }"></td>
 			</tr>
 			<tr>
 				<td>Password:</td>
 				<td><input type="password" name="password" value=""></td>
 			</tr>
 			<tr>
-				<%-- <td>&nbsp;</td> --%>
+				<%-- <td>&nbsp;</td>--%>
 				<td><input type="submit" value="Log In"></td>
 			</tr>
 		</table>

@@ -38,6 +38,7 @@ public class Login extends TagForGettingConnection {
 			try {
 				if (!rs.first() || !rs.getString("password").equals(password)) {
 					errorMessage = "Check login/passowrd";
+					getJspContext().setAttribute("userLogin", login, PageContext.SESSION_SCOPE);
 				} else {
 					User user = new User();
 					user.setId(rs.getInt("id"));

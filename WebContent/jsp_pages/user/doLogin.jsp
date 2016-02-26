@@ -10,9 +10,10 @@
 
 <c:choose>
 	<c:when test="${sessionScope.errorMessage==null }">
+		<c:remove var="userLogin" scope="session" />
 		<c:redirect url="cabinet.jsp"></c:redirect>
 	</c:when>
 	<c:otherwise>
-		<c:redirect url="../index.jsp"></c:redirect>
+		<c:redirect url="/jsp_pages/index.jsp"></c:redirect>
 	</c:otherwise>
 </c:choose>

@@ -5,6 +5,8 @@
 <%@taglib prefix="comp" tagdir="/WEB-INF/tags/"%>
 <%@taglib prefix="my" uri="/WEB-INF/taglibs/taglib.tld"%>
 
+<c:remove var="userLogin" scope="session" />
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
