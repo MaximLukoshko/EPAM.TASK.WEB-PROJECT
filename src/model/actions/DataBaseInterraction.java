@@ -57,7 +57,6 @@ public class DataBaseInterraction {
 			try {
 				if (!rs.first() || !rs.getString("password").equals(password)) {
 					errorMessage = "Check login/passowrd";
-					return null;
 				} else {
 					User user = new User();
 					user.setId(rs.getInt("id"));
