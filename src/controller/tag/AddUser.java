@@ -1,11 +1,10 @@
 package controller.tag;
 
 import java.io.IOException;
-import java.sql.SQLException;
-
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 
+import model.actions.DataBaseInterraction;
 import model.entity.User;
 
 public class AddUser extends TagForGettingConnection {
@@ -18,38 +17,10 @@ public class AddUser extends TagForGettingConnection {
 
 	@Override
 	public void doTag() throws JspException, IOException {
+		super.doTag();
 		// Изначально описание ошибки = null (т.е. ошибки нет)
 		String errorMessage = null;
-		// Проверить, что логин не пустой
-		if (user.getLogin() == null || user.getLogin().equals("")) {
-			errorMessage = "Login cannot be empty!";
-		} else if (user.getName() == null || user.getName().equals("")) {
-			errorMessage = "User name can not be empty!";
-		} else {
-			super.doTag();
-			try {
-				rs = st.executeQuery("select * from Users where login='" + user.getLogin() + "';");
-				if(rs.first()){
-					errorMessage = "This Login is busy! Use another one";
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		// Если ошибки не было - добавить пользователя
-		if (errorMessage == null) {
-			// Непосредственное добавление пользователя делает UserList
-			try {
-				System.out.println("insert into Users values (null, '" + user.getName() + "', '" + user.getEmail()
-						+ "', '" + user.getLogin() + "', '" + user.getPassword() + "');");
-				st.executeUpdate("insert into Users values (null, '" + user.getName() + "', '" + user.getEmail()
-						+ "', '" + user.getLogin() + "', '" + user.getPassword() + "');");
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
+		DataBaseInterraction.addUser(st, user, errorMessage);
 		// Сохранить описание ошибки (текст или null) в сессии
 		getJspContext().setAttribute("errorMessage", errorMessage, PageContext.SESSION_SCOPE);
 
