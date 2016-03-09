@@ -11,8 +11,9 @@ import model.entity.User;
 public class DataBaseInterraction {
 	private static final Logger log = Logger.getLogger(DataBaseInterraction.class);
 
-	public static void addUser(Statement st, User user, String errorMessage) {
+	public static String addUser(Statement st, User user) {
 		// Проверить, что логин не пустой
+		String errorMessage = null;
 		if (user.getLogin() == null || user.getLogin().equals("")) {
 			errorMessage = "Login cannot be empty!";
 		} else if (user.getName() == null || user.getName().equals("")) {
@@ -41,6 +42,7 @@ public class DataBaseInterraction {
 				e.printStackTrace();
 			}
 		}
+		return errorMessage;
 	}
 
 	public static User login(Statement st, String login, String password, String errorMessage) {

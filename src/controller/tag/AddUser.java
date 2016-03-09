@@ -20,7 +20,7 @@ public class AddUser extends TagForGettingConnection {
 		super.doTag();
 		// Изначально описание ошибки = null (т.е. ошибки нет)
 		String errorMessage = null;
-		DataBaseInterraction.addUser(st, user, errorMessage);
+		errorMessage = DataBaseInterraction.addUser(st, user);
 		// Сохранить описание ошибки (текст или null) в сессии
 		getJspContext().setAttribute("errorMessage", errorMessage, PageContext.SESSION_SCOPE);
 
