@@ -1,11 +1,10 @@
 package controller.tag;
 
 import java.io.IOException;
-import java.sql.SQLException;
-
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 
+import model.actions.DataBaseInterraction;
 import model.entity.User;
 
 public class Login extends TagForGettingConnection {
@@ -26,35 +25,13 @@ public class Login extends TagForGettingConnection {
 	@Override
 	public void doTag() throws JspException, IOException {
 		String errorMessage = null;
-		if (login == null || login.equals("")) {
-			errorMessage = "Login can not be empty!";
-		} else {
-			super.doTag();
-			try {
-				rs = st.executeQuery("select * from Users where login='" + login + "';");
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			try {
-				if (!rs.first() || !rs.getString("password").equals(password)) {
-					errorMessage = "Check login/passowrd";
-					getJspContext().setAttribute("userLogin", login, PageContext.SESSION_SCOPE);
-				} else {
-					User user = new User();
-					user.setId(rs.getInt("id"));
-					System.out.println(user.getId());
-					user.setName(rs.getString("name"));
-					user.setEmail(rs.getString("email"));
-					user.setLogin(rs.getString("login"));
-					user.setPassword(rs.getString("password"));
-					getJspContext().setAttribute("authUser", user, PageContext.SESSION_SCOPE);
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
+		super.doTag();
+		User user = DataBaseInterraction.login(st, login, password, errorMessage);
+		getJspContext().setAttribute("authUser", user, PageContext.SESSION_SCOPE);
+		// if (user == null) {
+		// getJspContext().setAttribute("userLogin", login,
+		// PageContext.SESSION_SCOPE);
+		// }
 		getJspContext().setAttribute("errorMessage", errorMessage, PageContext.SESSION_SCOPE);
 	}
 
