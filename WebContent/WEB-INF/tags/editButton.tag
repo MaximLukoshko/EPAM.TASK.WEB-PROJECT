@@ -3,7 +3,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%@ attribute name="ad" required="true" rtexprvalue="true"
-	type="entity.Ad"%>
+	type="model.entity.Ad"%>
 
 <c:if
 	test="${sessionScope.authUser!=null && ad!=null && ad.authorId==sessionScope.authUser.id }">

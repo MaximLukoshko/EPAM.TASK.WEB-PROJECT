@@ -1,4 +1,4 @@
-package entity;
+package model.entity;
 
 import java.io.Serializable;
 import java.util.Calendar;

@@ -16,7 +16,7 @@
 		<c:set var="adData" value="${ad }" scope="session" />
 	</c:when>
 	<c:otherwise>
-		<jsp:useBean id="adData" class="entity.Ad" />
+		<jsp:useBean id="adData" class="model.entity.Ad" />
 	</c:otherwise>
 </c:choose>
 

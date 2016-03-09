@@ -6,8 +6,9 @@ import java.util.Calendar;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
-import entity.Ad;
-import entity.User;
+
+import model.entity.Ad;
+import model.entity.User;
 
 public class UpdateAd extends TagForGettingConnection {
 
