@@ -7,7 +7,7 @@
 
 <fmt:requestEncoding value="UTF-8" />
 
-<jsp:useBean id="userData" class="entity.User" scope="session" />
+<jsp:useBean id="userData" class="model.entity.User" scope="session" />
 <jsp:setProperty property="*" name="userData" />
 
 <my:addUser user="${userData }" />

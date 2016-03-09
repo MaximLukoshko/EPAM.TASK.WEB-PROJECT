@@ -1,4 +1,4 @@
-package tag;
+package controller.tag;
 
 import java.io.IOException;
 import java.sql.Connection;
