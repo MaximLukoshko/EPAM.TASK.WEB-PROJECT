@@ -32,8 +32,8 @@ public class Login extends TagForGettingConnection {
 			super.doTag();
 			user = DataBaseInterraction.login(st, login, password, errorMessage);
 			getJspContext().setAttribute("authUser", user, PageContext.SESSION_SCOPE);
-			if (user == null) {
-				getJspContext().setAttribute("userLogin", login, PageContext.SESSION_SCOPE);
+		if (user == null) {
+			getJspContext().setAttribute("userLogin", login, PageContext.SESSION_SCOPE);
 				errorMessage = "Check login/passowrd";
 			}
 		}
