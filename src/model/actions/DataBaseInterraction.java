@@ -12,7 +12,6 @@ public class DataBaseInterraction {
 	private static final Logger log = Logger.getLogger(DataBaseInterraction.class);
 
 	public static String addUser(Statement st, User user) {
-		// Проверить, что логин не пустой
 		String errorMessage = null;
 		if (user.getLogin() == null || user.getLogin().equals("")) {
 			errorMessage = "Login cannot be empty!";
@@ -30,9 +29,7 @@ public class DataBaseInterraction {
 				e.printStackTrace();
 			}
 		}
-		// Если ошибки не было - добавить пользователя
 		if (errorMessage == null) {
-			// Непосредственное добавление пользователя делает UserList
 			try {
 				st.executeUpdate("insert into Users values (null, '" + user.getName() + "', '" + user.getEmail()
 						+ "', '" + user.getLogin() + "', '" + user.getPassword() + "');");

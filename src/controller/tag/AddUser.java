@@ -18,12 +18,9 @@ public class AddUser extends TagForGettingConnection {
 	@Override
 	public void doTag() throws JspException, IOException {
 		super.doTag();
-		// Изначально описание ошибки = null (т.е. ошибки нет)
 		String errorMessage = null;
 		errorMessage = DataBaseInterraction.addUser(st, user);
-		// Сохранить описание ошибки (текст или null) в сессии
 		getJspContext().setAttribute("errorMessage", errorMessage, PageContext.SESSION_SCOPE);
-
 	}
 
 }

@@ -8,10 +8,8 @@ import model.actions.DataBaseInterraction;
 import model.entity.User;
 
 public class Login extends TagForGettingConnection {
-	// Поле данных для атрибута login
 	private String login;
 
-	// Поле данных для атрибута password
 	private String password;
 
 	public void setLogin(String login) {
@@ -32,8 +30,8 @@ public class Login extends TagForGettingConnection {
 			super.doTag();
 			user = DataBaseInterraction.login(st, login, password, errorMessage);
 			getJspContext().setAttribute("authUser", user, PageContext.SESSION_SCOPE);
-		if (user == null) {
-			getJspContext().setAttribute("userLogin", login, PageContext.SESSION_SCOPE);
+			if (user == null) {
+				getJspContext().setAttribute("userLogin", login, PageContext.SESSION_SCOPE);
 				errorMessage = "Check login/passowrd";
 			}
 		}
