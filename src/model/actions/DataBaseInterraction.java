@@ -160,4 +160,21 @@ public class DataBaseInterraction {
 		}
 		return null;
 	}
+
+	public static String deleteAd(Statement st, Ad ad, User currentUser) {
+		String errorMessage = null;
+		// Проверить, что объявление изменяется его автором, а не чужаком
+		if (currentUser == null || (ad.getId() > 0 && currentUser.getId() != ad.getAuthorId())) {
+			errorMessage = "You can not change this add";
+		}
+		if (errorMessage == null) {
+			try {
+				st.executeUpdate("delete from Ads where id='" + ad.getId() + "';");
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return errorMessage;
+	}
 }
