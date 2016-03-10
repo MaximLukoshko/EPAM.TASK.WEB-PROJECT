@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 
@@ -170,6 +171,35 @@ public class DataBaseInterraction {
 		if (errorMessage == null) {
 			try {
 				st.executeUpdate("delete from Ads where id='" + ad.getId() + "';");
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return errorMessage;
+	}
+
+	public static String updateAd(Statement st, Ad ad, User currentUser) {
+		String errorMessage = null;
+		if (ad.getSubject() == null || ad.getSubject().equals("")) {
+			errorMessage = "Subject can not be empty!";
+		} else {
+			if (currentUser == null || (ad.getId() > 0 && currentUser.getId() != ad.getAuthorId())) {
+				errorMessage = "You can not change this add";
+			}
+		}
+		if (errorMessage == null) {
+			ad.setLastModified(Calendar.getInstance().getTimeInMillis());
+			String querry;
+			if (ad.getId() == 0) {
+				querry = "insert into Ads values (null, '" + ad.getAuthorId() + "', '" + ad.getAuthorName() + "', '"
+						+ ad.getSubject() + "', '" + ad.getBody() + "', '" + ad.getLastModified() + "');";
+			} else {
+				querry = "update Ads set subject='" + ad.getSubject() + "', body='" + ad.getBody() + "', lastModified='"
+						+ ad.getLastModified() + "' where id='" + ad.getId() + "';";
+			}
+			try {
+				st.executeUpdate(querry);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

@@ -25,9 +25,6 @@ public class DeleteAd extends TagForGettingConnection {
 		// Извлечь из сессии описание текущего пользователя
 		User currentUser = (User) getJspContext().getAttribute("authUser", PageContext.SESSION_SCOPE);
 		String errorMessage = DataBaseInterraction.deleteAd(st, ad, currentUser);
-
 		getJspContext().setAttribute("errorMessage", errorMessage, PageContext.SESSION_SCOPE);
-
 	}
-
 }
