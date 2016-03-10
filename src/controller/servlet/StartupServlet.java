@@ -1,4 +1,4 @@
-package model.servlet;
+package controller.servlet;
 
 import java.sql.Connection;
 

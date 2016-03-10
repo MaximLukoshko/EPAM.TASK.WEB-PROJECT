@@ -43,8 +43,6 @@ public class GetAds extends TagForGettingConnection {
 		super.doTag();
 		final User authUser = (User) getJspContext().getAttribute("authUser", PageContext.SESSION_SCOPE);
 		Object result = DataBaseInterraction.getAds(id, range, sort, dir, st, authUser);
-
 		getJspContext().setAttribute(GetAds.this.var, result, PageContext.PAGE_SCOPE);
-		// }
 	}
 }
