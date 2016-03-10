@@ -42,9 +42,10 @@ public class DataBaseInterraction {
 		return errorMessage;
 	}
 
-	public static User login(Statement st, String login, String password, String errorMessage) {
+	public static String login(Statement st, String login, String password, User user) {
 		if (login == null || login.equals("")) {
-			errorMessage = "Login can not be empty!";
+			user.setId(0);
+			return "Login can not be empty!";
 		} else {
 			ResultSet rs = null;
 			try {
@@ -55,15 +56,15 @@ public class DataBaseInterraction {
 			}
 			try {
 				if (!rs.first() || !rs.getString("password").equals(password)) {
-					errorMessage = "Check login/passowrd";
+					user.setId(0);
+					return "Check login/passowrd";
 				} else {
-					User user = new User();
 					user.setId(rs.getInt("id"));
 					user.setName(rs.getString("name"));
 					user.setEmail(rs.getString("email"));
 					user.setLogin(rs.getString("login"));
 					user.setPassword(rs.getString("password"));
-					return user;
+					return null;
 				}
 			} catch (SQLException e) {
 				log.error("Failed to check password for login " + login);

@@ -22,5 +22,4 @@ public class AddUser extends TagForGettingConnection {
 		errorMessage = DataBaseInterraction.addUser(st, user);
 		getJspContext().setAttribute("errorMessage", errorMessage, PageContext.SESSION_SCOPE);
 	}
-
 }

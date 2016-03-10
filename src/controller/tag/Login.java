@@ -23,18 +23,14 @@ public class Login extends TagForGettingConnection {
 	@Override
 	public void doTag() throws JspException, IOException {
 		String errorMessage = null;
-		User user = null;
-		if (login == null || login.equals("")) {
-			errorMessage = "Login can not be empty!";
-		} else {
-			super.doTag();
-			user = DataBaseInterraction.login(st, login, password, errorMessage);
-			getJspContext().setAttribute("authUser", user, PageContext.SESSION_SCOPE);
-			if (user == null) {
-				getJspContext().setAttribute("userLogin", login, PageContext.SESSION_SCOPE);
-				errorMessage = "Check login/passowrd";
-			}
+		User user = new User();
+		super.doTag();
+		errorMessage = DataBaseInterraction.login(st, login, password, user);
+		if (user.getId() == 0) {
+			user = null;
 		}
+		getJspContext().setAttribute("userLogin", login, PageContext.SESSION_SCOPE);
+		getJspContext().setAttribute("authUser", user, PageContext.SESSION_SCOPE);
 		getJspContext().setAttribute("errorMessage", errorMessage, PageContext.SESSION_SCOPE);
 	}
 
