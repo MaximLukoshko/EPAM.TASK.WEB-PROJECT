@@ -43,7 +43,7 @@
 						value="${sessionScope.userData.email }"></td>
 				</tr>
 				<tr>
-					<td><input type="submit" value="Sign Un"></td>
+					<td><input type="submit" value="Sign Up"></td>
 					<td><input type="button" value="Cancel"
 						onclick="window.location='<c:remove var="userData" scope="session" /><c:url value="../index.jsp" />';"></td>
 				</tr>
