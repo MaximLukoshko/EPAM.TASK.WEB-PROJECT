@@ -23,9 +23,6 @@ public class StartupServlet extends HttpServlet {
 	 * @see Servlet#init(ServletConfig)
 	 */
 	public void init(ServletConfig config) throws ServletException {
-//		BasicConfigurator.configure();
-//		String log4jConfPath = "/WEB-INF/lib/log4j.properties";
-//		PropertyConfigurator.configure(log4jConfPath);
 		super.init(config);
 		InitialContext initContext;
 		DataSource ds;
@@ -35,15 +32,12 @@ public class StartupServlet extends HttpServlet {
 			ds = (DataSource) initContext.lookup("java:comp/env/jdbc/epam_test_web");
 			conn = ds.getConnection();
 			getServletContext().setAttribute("databaseConnection", conn);
-			log.info("Connection to Database successdully started");
-			// System.out.println("Connection to Database successdully
-			// started");
+			log.info("Connection to Database successfully started");
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error("Connection to Database failed;");
-			// System.out.println("Connection to Database failed");
 		}
-		System.out.println("Servlet is loaded");
+		log.info("The servlet successfully started");
 	}
 
 }

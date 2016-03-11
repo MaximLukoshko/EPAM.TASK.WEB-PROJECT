@@ -98,15 +98,15 @@ public class DataBaseInterraction {
 					// PageContext.PAGE_SCOPE);
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+				log.error("Failed to execute Query " + "\"select * from Ads where id='" + id + "';\"");
 				e.printStackTrace();
 			}
 		} else {
 			// В этом списке будут содержаться только отобранные объявления
 			ArrayList<Ad> sortedList = new ArrayList<Ad>();
 
+			String query = new String("select * from Ads");
 			try {
-				String query = new String("select * from Ads");
 				if ("my".equals(range)) {
 					query += " where authorId='" + authUser.getId() + "'";
 				}
@@ -125,7 +125,7 @@ public class DataBaseInterraction {
 					} while (rs.next());
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+				log.error("Failed to execute Query " + "\"" + query + "\"");
 				e.printStackTrace();
 			}
 
@@ -172,7 +172,7 @@ public class DataBaseInterraction {
 			try {
 				st.executeUpdate("delete from Ads where id='" + ad.getId() + "';");
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+				log.error("Failed to execute Query " + "\"delete from Ads where id='" + ad.getId() + "';\"");
 				e.printStackTrace();
 			}
 		}
@@ -190,18 +190,18 @@ public class DataBaseInterraction {
 		}
 		if (errorMessage == null) {
 			ad.setLastModified(Calendar.getInstance().getTimeInMillis());
-			String querry;
+			String query = null;
 			if (ad.getId() == 0) {
-				querry = "insert into Ads values (null, '" + ad.getAuthorId() + "', '" + ad.getAuthorName() + "', '"
+				query = "insert into Ads values (null, '" + ad.getAuthorId() + "', '" + ad.getAuthorName() + "', '"
 						+ ad.getSubject() + "', '" + ad.getBody() + "', '" + ad.getLastModified() + "');";
 			} else {
-				querry = "update Ads set subject='" + ad.getSubject() + "', body='" + ad.getBody() + "', lastModified='"
+				query = "update Ads set subject='" + ad.getSubject() + "', body='" + ad.getBody() + "', lastModified='"
 						+ ad.getLastModified() + "' where id='" + ad.getId() + "';";
 			}
 			try {
-				st.executeUpdate(querry);
+				st.executeUpdate(query);
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+				log.error("Failed to execute Query " + "\"" + query + "\"");
 				e.printStackTrace();
 			}
 		}
