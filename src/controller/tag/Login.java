@@ -26,7 +26,7 @@ public class Login extends TagForGettingConnection {
 	public void doTag() throws JspException, IOException {
 		ArrayList<String> errorMessage = new ArrayList<String>(1);
 		super.doTag();
-		User user = DataBaseInterraction.login(conn, st, login, password, errorMessage);
+		User user = DataBaseInterraction.login(conn, login, password, errorMessage);
 		getJspContext().setAttribute("userLogin", login, PageContext.SESSION_SCOPE);
 		getJspContext().setAttribute("authUser", user, PageContext.SESSION_SCOPE);
 		getJspContext().setAttribute("errorMessage", errorMessage.get(0), PageContext.SESSION_SCOPE);

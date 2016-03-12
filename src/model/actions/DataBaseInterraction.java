@@ -20,39 +20,27 @@ import model.entity.User;
 public abstract class DataBaseInterraction {
 	private static final Logger log = Logger.getLogger(DataBaseInterraction.class);
 
-	public static String addUser(Statement st, User user) {
+	public static String addUser(Connection conn, User user) {
 		String errorMessage = null;
 		if (user.getLogin() == null || user.getLogin().equals("")) {
 			errorMessage = "Login cannot be empty!";
 		} else if (user.getName() == null || user.getName().equals("")) {
 			errorMessage = "User name can not be empty!";
 		} else {
-			try {
-				ResultSet rs = st.executeQuery("select * from Users where login='" + user.getLogin() + "';");
-				if (rs.first()) {
-					errorMessage = "This Login is busy! Use another one";
-				}
-			} catch (SQLException e) {
-				log.error(
-						"Failed to execute Query " + "\"select * from Users where login='" + user.getLogin() + "';\"");
-				e.printStackTrace();
+			DaoFactory daoFactory = new MySqlDaoFactory();
+			UserDao userDao = daoFactory.getUserDao(conn);
+			if (userDao.read(user.getLogin()) != null) {
+				errorMessage = "This Login is busy! Use another one";
 			}
-		}
-		if (errorMessage == null) {
-			try {
-				st.executeUpdate("insert into Users values (null, '" + user.getName() + "', '" + user.getEmail()
-						+ "', '" + user.getLogin() + "', '" + user.getPassword() + "');");
-			} catch (SQLException e) {
-				log.error("Failed to execute Query " + "\"insert into Users values (null, '" + user.getName() + "', '"
-						+ user.getEmail() + "', '" + user.getLogin() + "', '" + user.getPassword() + "');\"");
-				e.printStackTrace();
+			if (errorMessage == null) {
+				userDao.update(user);
 			}
 		}
 		return errorMessage;
+
 	}
 
-	public static User login(Connection conn, Statement st, String login, String password,
-			ArrayList<String> errorMessage) {
+	public static User login(Connection conn, String login, String password, ArrayList<String> errorMessage) {
 		if (errorMessage.isEmpty()) {
 			errorMessage.add("");
 		}
