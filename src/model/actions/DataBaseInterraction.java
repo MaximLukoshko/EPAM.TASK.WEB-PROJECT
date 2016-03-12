@@ -19,6 +19,7 @@ import model.entity.User;
 
 public abstract class DataBaseInterraction {
 	private static final Logger log = Logger.getLogger(DataBaseInterraction.class);
+	private static DaoFactory daoFactory = new MySqlDaoFactory();
 
 	public static String addUser(Connection conn, User user) {
 		String errorMessage = null;
@@ -27,7 +28,6 @@ public abstract class DataBaseInterraction {
 		} else if (user.getName() == null || user.getName().equals("")) {
 			errorMessage = "User name can not be empty!";
 		} else {
-			DaoFactory daoFactory = new MySqlDaoFactory();
 			UserDao userDao = daoFactory.getUserDao(conn);
 			if (userDao.read(user.getLogin()) != null) {
 				errorMessage = "This Login is busy! Use another one";
@@ -48,7 +48,6 @@ public abstract class DataBaseInterraction {
 			errorMessage.set(0, "Login can not be empty!");
 			return null;
 		}
-		DaoFactory daoFactory = new MySqlDaoFactory();
 		UserDao userDao = daoFactory.getUserDao(conn);
 		User user = userDao.read(login);
 		if (user == null) {
