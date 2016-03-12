@@ -1,6 +1,8 @@
 package controller.tag;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 
@@ -22,16 +24,12 @@ public class Login extends TagForGettingConnection {
 
 	@Override
 	public void doTag() throws JspException, IOException {
-		String errorMessage = null;
-		User user = new User();
+		ArrayList<String> errorMessage = new ArrayList<String>(1);
 		super.doTag();
-		errorMessage = DataBaseInterraction.login(st, login, password, user);
-		if (user.getId() == 0) {
-			user = null;
-		}
+		User user = DataBaseInterraction.login(conn, st, login, password, errorMessage);
 		getJspContext().setAttribute("userLogin", login, PageContext.SESSION_SCOPE);
 		getJspContext().setAttribute("authUser", user, PageContext.SESSION_SCOPE);
-		getJspContext().setAttribute("errorMessage", errorMessage, PageContext.SESSION_SCOPE);
+		getJspContext().setAttribute("errorMessage", errorMessage.get(0), PageContext.SESSION_SCOPE);
 	}
 
 }

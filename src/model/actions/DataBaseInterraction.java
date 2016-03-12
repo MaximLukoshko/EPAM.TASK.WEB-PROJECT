@@ -1,5 +1,6 @@
 package model.actions;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -10,10 +11,13 @@ import java.util.Comparator;
 
 import org.apache.log4j.Logger;
 
+import model.dao.DaoFactory;
+import model.dao.MySqlDaoFactory;
+import model.dao.UserDao;
 import model.entity.Ad;
 import model.entity.User;
 
-public class DataBaseInterraction {
+public abstract class DataBaseInterraction {
 	private static final Logger log = Logger.getLogger(DataBaseInterraction.class);
 
 	public static String addUser(Statement st, User user) {
@@ -47,36 +51,22 @@ public class DataBaseInterraction {
 		return errorMessage;
 	}
 
-	public static String login(Statement st, String login, String password, User user) {
-		if (login == null || login.equals("")) {
-			user.setId(0);
-			return "Login can not be empty!";
-		} else {
-			ResultSet rs = null;
-			try {
-				rs = st.executeQuery("select * from Users where login='" + login + "';");
-			} catch (SQLException e) {
-				log.error("Failed to execute Query " + "\"select * from Users where login='" + login + "';\"");
-				e.printStackTrace();
-			}
-			try {
-				if (!rs.first() || !rs.getString("password").equals(password)) {
-					user.setId(0);
-					return "Check login/passowrd";
-				} else {
-					user.setId(rs.getInt("id"));
-					user.setName(rs.getString("name"));
-					user.setEmail(rs.getString("email"));
-					user.setLogin(rs.getString("login"));
-					user.setPassword(rs.getString("password"));
-					return null;
-				}
-			} catch (SQLException e) {
-				log.error("Failed to check password for login " + login);
-				e.printStackTrace();
-			}
+	public static User login(Connection conn, Statement st, String login, String password,
+			ArrayList<String> errorMessage) {
+		if (errorMessage.isEmpty()) {
+			errorMessage.add("");
 		}
-		return null;
+		if (login == null || login.equals("")) {
+			errorMessage.set(0, "Login can not be empty!");
+			return null;
+		}
+		DaoFactory daoFactory = new MySqlDaoFactory();
+		UserDao userDao = daoFactory.getUserDao(conn);
+		User user = userDao.read(login);
+		if (user == null) {
+			errorMessage.set(0, "Check login/passowrd");
+		}
+		return user;
 	}
 
 	public static Object getAds(int id, String range, final String sort, final char dir, Statement st, User authUser) {
