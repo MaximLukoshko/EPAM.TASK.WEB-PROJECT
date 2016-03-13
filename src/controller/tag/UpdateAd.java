@@ -1,8 +1,6 @@
 package controller.tag;
 
 import java.io.IOException;
-import java.sql.SQLException;
-
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 
@@ -23,12 +21,7 @@ public class UpdateAd extends TagForGettingConnection {
 		super.doTag();
 		User currentUser = (User) getJspContext().getAttribute("authUser", PageContext.SESSION_SCOPE);
 		String errorMessage = null;
-		try {
-			errorMessage = DataBaseInterraction.updateAd(daoFactory.getConnection().createStatement(), ad, currentUser);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		errorMessage = DataBaseInterraction.updateAd(daoFactory, ad, currentUser);
 		getJspContext().setAttribute("errorMessage", errorMessage, PageContext.SESSION_SCOPE);
 	}
 

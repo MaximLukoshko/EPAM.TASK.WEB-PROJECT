@@ -148,7 +148,7 @@ public abstract class DataBaseInterraction {
 		return errorMessage;
 	}
 
-	public static String updateAd(Statement st, Ad ad, User currentUser) {
+	public static String updateAd(DaoFactory daoFactory, Ad ad, User currentUser) {
 		String errorMessage = null;
 		if (ad.getSubject() == null || ad.getSubject().equals("")) {
 			errorMessage = "Subject can not be empty!";
@@ -159,20 +159,7 @@ public abstract class DataBaseInterraction {
 		}
 		if (errorMessage == null) {
 			ad.setLastModified(Calendar.getInstance().getTimeInMillis());
-			String query = null;
-			if (ad.getId() == 0) {
-				query = "insert into Ads values (null, '" + ad.getAuthorId() + "', '" + ad.getAuthorName() + "', '"
-						+ ad.getSubject() + "', '" + ad.getBody() + "', '" + ad.getLastModified() + "');";
-			} else {
-				query = "update Ads set subject='" + ad.getSubject() + "', body='" + ad.getBody() + "', lastModified='"
-						+ ad.getLastModified() + "' where id='" + ad.getId() + "';";
-			}
-			try {
-				st.executeUpdate(query);
-			} catch (SQLException e) {
-				log.error("Failed to execute Query " + "\"" + query + "\"");
-				e.printStackTrace();
-			}
+			daoFactory.getAdDao().update(ad);
 		}
 		return errorMessage;
 	}

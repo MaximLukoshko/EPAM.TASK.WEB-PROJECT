@@ -29,9 +29,21 @@ public class MySqlAdDao implements AdDao {
 	}
 
 	@Override
-	public void update(Ad Ad) {
-		// TODO Auto-generated method stub
-
+	public void update(Ad ad) {
+		String query = null;
+		if (ad.getId() == 0) {
+			query = "insert into Ads values (null, '" + ad.getAuthorId() + "', '" + ad.getAuthorName() + "', '"
+					+ ad.getSubject() + "', '" + ad.getBody() + "', '" + ad.getLastModified() + "');";
+		} else {
+			query = "update Ads set subject='" + ad.getSubject() + "', body='" + ad.getBody() + "', lastModified='"
+					+ ad.getLastModified() + "' where id='" + ad.getId() + "';";
+		}
+		try {
+			connection.createStatement().executeUpdate(query);
+		} catch (SQLException e) {
+			log.error("Failed to execute Query " + "\"" + query + "\"");
+			e.printStackTrace();
+		}
 	}
 
 	@Override
