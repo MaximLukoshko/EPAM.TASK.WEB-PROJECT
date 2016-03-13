@@ -1,12 +1,14 @@
 package model.dao;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
 
 import model.entity.Ad;
+import model.entity.User;
 
 public class MySqlAdDao implements AdDao {
 	private static final Logger log = Logger.getLogger(MySqlAdDao.class);
@@ -23,9 +25,30 @@ public class MySqlAdDao implements AdDao {
 	}
 
 	@Override
-	public Ad read(int key) {
-		// TODO Auto-generated method stub
+	public Ad read(int id) {
+		try {
+			ResultSet rs = connection.createStatement().executeQuery("select * from Ads where id='" + id + "';");
+			if (rs.first()) {
+				Ad ad = new Ad();
+				ad.setAuthorId(rs.getInt("authorId"));
+				ad.setBody(rs.getString("body"));
+				ad.setId(rs.getInt("id"));
+				ad.setAuthorId(rs.getInt("authorId"));
+				ad.setAuthorName(rs.getString("authorName"));
+				ad.setLastModified(rs.getLong("lastModified"));
+				ad.setSubject(rs.getString("subject"));
+				return ad;
+			}
+		} catch (
+
+		SQLException e)
+
+		{
+			log.error("Failed to execute Query " + "\"select * from Ads where id='" + id + "';\"");
+			e.printStackTrace();
+		}
 		return null;
+
 	}
 
 	@Override
@@ -58,7 +81,51 @@ public class MySqlAdDao implements AdDao {
 
 	@Override
 	public ArrayList<Ad> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Ad> adList = new ArrayList<Ad>();
+		String query = new String("select * from Ads;");
+		try {
+			ResultSet rs = connection.createStatement().executeQuery(query);
+			if (rs.first()) {
+				do {
+					Ad ad = new Ad();
+					ad.setAuthorId(rs.getInt("authorId"));
+					ad.setBody(rs.getString("body"));
+					ad.setId(rs.getInt("id"));
+					ad.setAuthorName(rs.getString("authorName"));
+					ad.setLastModified(rs.getLong("lastModified"));
+					ad.setSubject(rs.getString("subject"));
+					adList.add(ad);
+				} while (rs.next());
+			}
+		} catch (SQLException e) {
+			log.error("Failed to execute Query " + "\"" + query + "\"");
+			e.printStackTrace();
+		}
+		return adList;
+	}
+
+	@Override
+	public ArrayList<Ad> read(User authUser) {
+		ArrayList<Ad> adList = new ArrayList<Ad>();
+		String query = new String("select * from Ads where authorId='" + authUser.getId() + "';");
+		try {
+			ResultSet rs = connection.createStatement().executeQuery(query);
+			if (rs.first()) {
+				do {
+					Ad ad = new Ad();
+					ad.setAuthorId(rs.getInt("authorId"));
+					ad.setBody(rs.getString("body"));
+					ad.setId(rs.getInt("id"));
+					ad.setAuthorName(rs.getString("authorName"));
+					ad.setLastModified(rs.getLong("lastModified"));
+					ad.setSubject(rs.getString("subject"));
+					adList.add(ad);
+				} while (rs.next());
+			}
+		} catch (SQLException e) {
+			log.error("Failed to execute Query " + "\"" + query + "\"");
+			e.printStackTrace();
+		}
+		return adList;
 	}
 }

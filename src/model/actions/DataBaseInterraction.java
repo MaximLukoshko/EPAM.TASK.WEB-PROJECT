@@ -1,8 +1,5 @@
 package model.actions;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -16,6 +13,7 @@ import model.entity.Ad;
 import model.entity.User;
 
 public abstract class DataBaseInterraction {
+	@SuppressWarnings("unused")
 	private static final Logger log = Logger.getLogger(DataBaseInterraction.class);
 
 	public static String addUser(DaoFactory daoFactory, User user) {
@@ -45,64 +43,25 @@ public abstract class DataBaseInterraction {
 			errorMessage.set(0, "Login can not be empty!");
 			return null;
 		}
-		UserDao userDao = daoFactory.getUserDao();
-		User user = userDao.read(login);
+
+		User user = daoFactory.getUserDao().read(login);
 		if (user == null) {
 			errorMessage.set(0, "Check login/passowrd");
 		}
 		return user;
 	}
 
-	public static Object getAds(int id, String range, final String sort, final char dir, Statement st, User authUser) {
-		ResultSet rs;
+	public static Object getAds(int id, String range, final String sort, final char dir, User authUser,
+			DaoFactory daoFactory) {
 		if (id > 0) {
-			try {
-				rs = st.executeQuery("select * from Ads where id='" + id + "';");
-				if (rs.first()) {
-					Ad ad = new Ad();
-					ad.setAuthorId(rs.getInt("authorId"));
-					ad.setBody(rs.getString("body"));
-					ad.setId(rs.getInt("id"));
-					ad.setAuthorId(rs.getInt("authorId"));
-					ad.setAuthorName(rs.getString("authorName"));
-					ad.setLastModified(rs.getLong("lastModified"));
-					ad.setSubject(rs.getString("subject"));
-					return ad;
-					// getJspContext().setAttribute(GetAds.this.var, ad,
-					// PageContext.PAGE_SCOPE);
-				}
-			} catch (SQLException e) {
-				log.error("Failed to execute Query " + "\"select * from Ads where id='" + id + "';\"");
-				e.printStackTrace();
-			}
+			daoFactory.getAdDao().read(id);
 		} else {
-			// В этом списке будут содержаться только отобранные объявления
 			ArrayList<Ad> sortedList = new ArrayList<Ad>();
-
-			String query = new String("select * from Ads");
-			try {
-				if ("my".equals(range)) {
-					query += " where authorId='" + authUser.getId() + "'";
-				}
-				query += ";";
-				rs = st.executeQuery(query);
-				if (rs.first()) {
-					do {
-						Ad ad = new Ad();
-						ad.setAuthorId(rs.getInt("authorId"));
-						ad.setBody(rs.getString("body"));
-						ad.setId(rs.getInt("id"));
-						ad.setAuthorName(rs.getString("authorName"));
-						ad.setLastModified(rs.getLong("lastModified"));
-						ad.setSubject(rs.getString("subject"));
-						sortedList.add(ad);
-					} while (rs.next());
-				}
-			} catch (SQLException e) {
-				log.error("Failed to execute Query " + "\"" + query + "\"");
-				e.printStackTrace();
+			if ("my".equals(range)) {
+				sortedList = daoFactory.getAdDao().read(authUser);
+			} else {
+				sortedList = daoFactory.getAdDao().getAll();
 			}
-
 			Comparator<Ad> comparator = new Comparator<Ad>() {
 
 				@Override
@@ -116,11 +75,9 @@ public abstract class DataBaseInterraction {
 					} else {
 						result = ad1.getAuthorName().compareTo(ad2.getAuthorName());
 					}
-
 					if (dir == 'd') {
 						result = -result;
 					}
-
 					return result;
 				}
 

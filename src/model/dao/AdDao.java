@@ -3,6 +3,7 @@ package model.dao;
 import java.util.ArrayList;
 
 import model.entity.Ad;
+import model.entity.User;
 
 public interface AdDao {
 	/** Создает новую запись и соответствующий ей объект */
@@ -12,6 +13,8 @@ public interface AdDao {
 	 * Возвращает объект соответствующий записи с первичным ключом key или null
 	 */
 	public Ad read(int key);
+
+	public ArrayList<Ad> read(User authUser);
 
 	/** Сохраняет состояние объекта group в базе данных */
 	public void update(Ad Ad);
