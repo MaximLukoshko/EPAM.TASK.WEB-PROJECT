@@ -24,11 +24,14 @@ public class Login extends TagForGettingConnection {
 
 	@Override
 	public void doTag() throws JspException, IOException {
-		ArrayList<String> errorMessage = new ArrayList<String>(1);
+		ArrayList<String> errorMessage = new ArrayList<String>();
 		super.doTag();
-		User user = DataBaseInterraction.login(conn, login, password, errorMessage);
+		User user = DataBaseInterraction.login(daoFactory, login, password, errorMessage);
 		getJspContext().setAttribute("userLogin", login, PageContext.SESSION_SCOPE);
 		getJspContext().setAttribute("authUser", user, PageContext.SESSION_SCOPE);
+		if (errorMessage.get(0).equals("")) {
+			errorMessage.set(0, null);
+		}
 		getJspContext().setAttribute("errorMessage", errorMessage.get(0), PageContext.SESSION_SCOPE);
 	}
 

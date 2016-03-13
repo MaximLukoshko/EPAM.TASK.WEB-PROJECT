@@ -11,6 +11,9 @@ import javax.sql.DataSource;
 
 import org.apache.log4j.Logger;
 
+import model.dao.DaoFactory;
+import model.dao.MySqlDaoFactory;
+
 /**
  * Servlet implementation class StartupServlet
  */
@@ -31,7 +34,8 @@ public class StartupServlet extends HttpServlet {
 			initContext = new InitialContext();
 			ds = (DataSource) initContext.lookup("java:comp/env/jdbc/epam_test_web");
 			conn = ds.getConnection();
-			getServletContext().setAttribute("databaseConnection", conn);
+			DaoFactory daoFactory = new MySqlDaoFactory(conn);
+			getServletContext().setAttribute("DaoFactory", daoFactory);
 			log.info("Connection to Database successfully started");
 		} catch (Exception e) {
 			e.printStackTrace();

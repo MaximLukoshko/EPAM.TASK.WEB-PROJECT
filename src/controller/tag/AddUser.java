@@ -19,7 +19,7 @@ public class AddUser extends TagForGettingConnection {
 	public void doTag() throws JspException, IOException {
 		super.doTag();
 		String errorMessage = null;
-		errorMessage = DataBaseInterraction.addUser(conn, user);
+		errorMessage = DataBaseInterraction.addUser(daoFactory, user);
 		getJspContext().setAttribute("errorMessage", errorMessage, PageContext.SESSION_SCOPE);
 	}
 }

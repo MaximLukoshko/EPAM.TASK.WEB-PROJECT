@@ -1,6 +1,5 @@
 package model.actions;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -12,23 +11,21 @@ import java.util.Comparator;
 import org.apache.log4j.Logger;
 
 import model.dao.DaoFactory;
-import model.dao.MySqlDaoFactory;
 import model.dao.UserDao;
 import model.entity.Ad;
 import model.entity.User;
 
 public abstract class DataBaseInterraction {
 	private static final Logger log = Logger.getLogger(DataBaseInterraction.class);
-	private static DaoFactory daoFactory = new MySqlDaoFactory();
 
-	public static String addUser(Connection conn, User user) {
+	public static String addUser(DaoFactory daoFactory, User user) {
 		String errorMessage = null;
 		if (user.getLogin() == null || user.getLogin().equals("")) {
 			errorMessage = "Login cannot be empty!";
 		} else if (user.getName() == null || user.getName().equals("")) {
 			errorMessage = "User name can not be empty!";
 		} else {
-			UserDao userDao = daoFactory.getUserDao(conn);
+			UserDao userDao = daoFactory.getUserDao();
 			if (userDao.read(user.getLogin()) != null) {
 				errorMessage = "This Login is busy! Use another one";
 			}
@@ -40,7 +37,7 @@ public abstract class DataBaseInterraction {
 
 	}
 
-	public static User login(Connection conn, String login, String password, ArrayList<String> errorMessage) {
+	public static User login(DaoFactory daoFactory, String login, String password, ArrayList<String> errorMessage) {
 		if (errorMessage.isEmpty()) {
 			errorMessage.add("");
 		}
@@ -48,7 +45,7 @@ public abstract class DataBaseInterraction {
 			errorMessage.set(0, "Login can not be empty!");
 			return null;
 		}
-		UserDao userDao = daoFactory.getUserDao(conn);
+		UserDao userDao = daoFactory.getUserDao();
 		User user = userDao.read(login);
 		if (user == null) {
 			errorMessage.set(0, "Check login/passowrd");
@@ -139,7 +136,7 @@ public abstract class DataBaseInterraction {
 		return null;
 	}
 
-	public static String deleteAd(Statement st, Ad ad, User currentUser) {
+	public static String deleteAd(Statement statement, Ad ad, User currentUser) {
 		String errorMessage = null;
 		// Проверить, что объявление изменяется его автором, а не чужаком
 		if (currentUser == null || (ad.getId() > 0 && currentUser.getId() != ad.getAuthorId())) {
@@ -147,7 +144,7 @@ public abstract class DataBaseInterraction {
 		}
 		if (errorMessage == null) {
 			try {
-				st.executeUpdate("delete from Ads where id='" + ad.getId() + "';");
+				statement.executeUpdate("delete from Ads where id='" + ad.getId() + "';");
 			} catch (SQLException e) {
 				log.error("Failed to execute Query " + "\"delete from Ads where id='" + ad.getId() + "';\"");
 				e.printStackTrace();

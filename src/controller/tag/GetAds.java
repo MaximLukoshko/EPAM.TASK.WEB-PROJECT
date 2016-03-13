@@ -1,6 +1,8 @@
 package controller.tag;
 
 import java.io.IOException;
+import java.sql.SQLException;
+
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 
@@ -42,7 +44,14 @@ public class GetAds extends TagForGettingConnection {
 	public void doTag() throws JspException, IOException {
 		super.doTag();
 		final User authUser = (User) getJspContext().getAttribute("authUser", PageContext.SESSION_SCOPE);
-		Object result = DataBaseInterraction.getAds(id, range, sort, dir, st, authUser);
+		Object result = null;
+		try {
+			result = DataBaseInterraction.getAds(id, range, sort, dir, daoFactory.getConnection().createStatement(),
+					authUser);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		getJspContext().setAttribute(GetAds.this.var, result, PageContext.PAGE_SCOPE);
 	}
 }
