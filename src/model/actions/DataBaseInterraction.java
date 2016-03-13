@@ -136,19 +136,14 @@ public abstract class DataBaseInterraction {
 		return null;
 	}
 
-	public static String deleteAd(Statement statement, Ad ad, User currentUser) {
+	public static String deleteAd(DaoFactory daoFactory, Ad ad, User currentUser) {
 		String errorMessage = null;
 		// Проверить, что объявление изменяется его автором, а не чужаком
 		if (currentUser == null || (ad.getId() > 0 && currentUser.getId() != ad.getAuthorId())) {
 			errorMessage = "You can not change this add";
 		}
 		if (errorMessage == null) {
-			try {
-				statement.executeUpdate("delete from Ads where id='" + ad.getId() + "';");
-			} catch (SQLException e) {
-				log.error("Failed to execute Query " + "\"delete from Ads where id='" + ad.getId() + "';\"");
-				e.printStackTrace();
-			}
+			daoFactory.getAdDao().delete(ad);
 		}
 		return errorMessage;
 	}

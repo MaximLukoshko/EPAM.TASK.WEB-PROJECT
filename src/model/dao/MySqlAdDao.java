@@ -1,6 +1,7 @@
 package model.dao;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
@@ -8,9 +9,7 @@ import org.apache.log4j.Logger;
 import model.entity.Ad;
 
 public class MySqlAdDao implements AdDao {
-	@SuppressWarnings("unused")
 	private static final Logger log = Logger.getLogger(MySqlAdDao.class);
-	@SuppressWarnings("unused")
 	private final Connection connection;
 
 	public MySqlAdDao(Connection connection) {
@@ -36,9 +35,13 @@ public class MySqlAdDao implements AdDao {
 	}
 
 	@Override
-	public void delete(Ad Ad) {
-		// TODO Auto-generated method stub
-
+	public void delete(Ad ad) {
+		try {
+			connection.createStatement().executeUpdate("delete from Ads where id='" + ad.getId() + "';");
+		} catch (SQLException e) {
+			log.error("Failed to execute Query " + "\"delete from Ads where id='" + ad.getId() + "';\"");
+			e.printStackTrace();
+		}
 	}
 
 	@Override
