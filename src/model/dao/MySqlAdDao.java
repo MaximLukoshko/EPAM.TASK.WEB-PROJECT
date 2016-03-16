@@ -21,7 +21,19 @@ public class MySqlAdDao implements AdDao {
 
 	@Override
 	public void create(Ad ad) {
-		// TODO Auto-generated method stub
+		String sql = "insert into Ads values (null, ?, ?, ?, ?, ?);";
+		try {
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setInt(1, ad.getAuthorId());
+			statement.setString(2, ad.getAuthorName());
+			statement.setString(3, ad.getSubject());
+			statement.setString(4, ad.getBody());
+			statement.setLong(5, ad.getLastModified());
+			statement.executeUpdate();
+		} catch (SQLException e) {
+			log.error("Failed to create Ad " + ad.toString());
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -56,28 +68,29 @@ public class MySqlAdDao implements AdDao {
 
 	@Override
 	public void update(Ad ad) {
-		String query = null;
-		if (ad.getId() == 0) {
-			query = "insert into Ads values (null, '" + ad.getAuthorId() + "', '" + ad.getAuthorName() + "', '"
-					+ ad.getSubject() + "', '" + ad.getBody() + "', '" + ad.getLastModified() + "');";
-		} else {
-			query = "update Ads set subject='" + ad.getSubject() + "', body='" + ad.getBody() + "', lastModified='"
-					+ ad.getLastModified() + "' where id='" + ad.getId() + "';";
-		}
+		String sql = "update Ads set subject= ?, body= ?, lastModified= ? where id= ?;";
 		try {
-			connection.createStatement().executeUpdate(query);
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setString(1, ad.getSubject());
+			statement.setString(2, ad.getBody());
+			statement.setLong(3, ad.getLastModified());
+			statement.setInt(4, ad.getId());
+			statement.executeUpdate();
 		} catch (SQLException e) {
-			log.error("Failed to execute Query " + "\"" + query + "\"");
+			log.error("Failed to update Ad " + ad.toString());
 			e.printStackTrace();
 		}
 	}
 
 	@Override
 	public void delete(Ad ad) {
+		String sql = "delete from Ads where id = ?;";
 		try {
-			connection.createStatement().executeUpdate("delete from Ads where id='" + ad.getId() + "';");
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setInt(1, ad.getId());
+			statement.executeUpdate();
 		} catch (SQLException e) {
-			log.error("Failed to execute Query " + "\"delete from Ads where id='" + ad.getId() + "';\"");
+			log.error("Failed to delete ad " + ad.toString());
 			e.printStackTrace();
 		}
 	}
@@ -85,9 +98,10 @@ public class MySqlAdDao implements AdDao {
 	@Override
 	public ArrayList<Ad> getAll() {
 		ArrayList<Ad> adList = new ArrayList<Ad>();
-		String query = new String("select * from Ads;");
+		String sql = new String("select * from Ads;");
 		try {
-			ResultSet rs = connection.createStatement().executeQuery(query);
+			PreparedStatement statement = connection.prepareStatement(sql);
+			ResultSet rs = statement.executeQuery();
 			if (rs.first()) {
 				do {
 					Ad ad = new Ad();
@@ -101,7 +115,7 @@ public class MySqlAdDao implements AdDao {
 				} while (rs.next());
 			}
 		} catch (SQLException e) {
-			log.error("Failed to execute Query " + "\"" + query + "\"");
+			log.error("Failed to get all ads");
 			e.printStackTrace();
 		}
 		return adList;
