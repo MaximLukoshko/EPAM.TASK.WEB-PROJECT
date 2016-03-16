@@ -68,11 +68,6 @@ public class Ad implements Identifiable, Serializable {
 	}
 
 	@Override
-	public int hashCode() {
-		return id;
-	}
-
-	@Override
 	public int getId() {
 		return id;
 	}
@@ -83,6 +78,11 @@ public class Ad implements Identifiable, Serializable {
 
 	public void setAuthorName(String authorName) {
 		this.authorName = authorName;
+	}
+
+	@Override
+	public String toString() {
+		return "Subject " + getSubject() + " Body:" + getBody() + "\n";
 	}
 
 }

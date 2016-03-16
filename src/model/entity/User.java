@@ -52,11 +52,6 @@ public class User implements Serializable, Identifiable {
 	}
 
 	@Override
-	public int hashCode() {
-		return id;
-	}
-
-	@Override
 	public int getId() {
 		return id;
 	}

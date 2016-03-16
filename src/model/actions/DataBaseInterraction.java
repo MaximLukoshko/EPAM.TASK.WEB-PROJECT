@@ -117,7 +117,12 @@ public abstract class DataBaseInterraction {
 		}
 		if (errorMessage == null) {
 			ad.setLastModified(Calendar.getInstance().getTimeInMillis());
-			daoFactory.getAdDao().update(ad);
+			if (ad.getId() == 0) {
+				daoFactory.getAdDao().create(ad);
+
+			} else {
+				daoFactory.getAdDao().update(ad);
+			}
 		}
 		return errorMessage;
 	}
