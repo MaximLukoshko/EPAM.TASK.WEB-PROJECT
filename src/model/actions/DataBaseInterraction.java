@@ -1,5 +1,7 @@
 package model.actions;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -16,26 +18,29 @@ public abstract class DataBaseInterraction {
 	@SuppressWarnings("unused")
 	private static final Logger log = Logger.getLogger(DataBaseInterraction.class);
 
-	public static String addUser(DaoFactory daoFactory, User user) {
+	public static String addUser(DaoFactory daoFactory, User user) throws SQLException {
 		String errorMessage = null;
 		if (user.getLogin() == null || user.getLogin().equals("")) {
 			errorMessage = "Login cannot be empty!";
 		} else if (user.getName() == null || user.getName().equals("")) {
 			errorMessage = "User name can not be empty!";
 		} else {
-			UserDao userDao = daoFactory.getUserDao();
+			Connection connection = daoFactory.getConnection();
+			UserDao userDao = daoFactory.getUserDao(connection);
 			if (userDao.read(user.getLogin()) != null) {
 				errorMessage = "This Login is busy! Use another one";
 			}
 			if (errorMessage == null) {
 				userDao.create(user);
 			}
+			connection.close();
 		}
 		return errorMessage;
 
 	}
 
-	public static User login(DaoFactory daoFactory, String login, String password, ArrayList<String> errorMessage) {
+	public static User login(DaoFactory daoFactory, String login, String password, ArrayList<String> errorMessage)
+			throws SQLException {
 		if (errorMessage.isEmpty()) {
 			errorMessage.add("");
 		}
@@ -44,7 +49,9 @@ public abstract class DataBaseInterraction {
 			return null;
 		}
 
-		User user = daoFactory.getUserDao().read(login);
+		Connection connection = daoFactory.getConnection();
+		User user = daoFactory.getUserDao(connection).read(login);
+		connection.close();
 		if (user == null || !password.equals(user.getPassword())) {
 			errorMessage.set(0, "Check login/passowrd");
 			user = null;
@@ -53,17 +60,22 @@ public abstract class DataBaseInterraction {
 	}
 
 	public static Object getAds(int id, String range, final String sort, final char dir, User authUser,
-			DaoFactory daoFactory) {
+			DaoFactory daoFactory) throws SQLException {
 		if (id > 0) {
-			Ad ad = daoFactory.getAdDao().read(id);
+			Connection connection = daoFactory.getConnection();
+			Ad ad = daoFactory.getAdDao(connection).read(id);
+			connection.close();
 			return ad;
 		} else {
+			Connection connection = daoFactory.getConnection();
 			ArrayList<Ad> sortedList = new ArrayList<Ad>();
 			if ("my".equals(range)) {
-				sortedList = daoFactory.getAdDao().read(authUser);
+				sortedList = daoFactory.getAdDao(connection).read(authUser);
 			} else {
-				sortedList = daoFactory.getAdDao().getAll();
+				sortedList = daoFactory.getAdDao(connection).getAll();
 			}
+			connection.close();
+
 			Comparator<Ad> comparator = new Comparator<Ad>() {
 
 				@Override
@@ -101,12 +113,20 @@ public abstract class DataBaseInterraction {
 			errorMessage = "You can not change this add";
 		}
 		if (errorMessage == null) {
-			daoFactory.getAdDao().delete(ad);
+			java.sql.Connection connection;
+			try {
+				connection = daoFactory.getConnection();
+				daoFactory.getAdDao(connection).delete(ad);
+				connection.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return errorMessage;
 	}
 
-	public static String updateAd(DaoFactory daoFactory, Ad ad, User currentUser) {
+	public static String updateAd(DaoFactory daoFactory, Ad ad, User currentUser) throws SQLException {
 		String errorMessage = null;
 		if (ad.getSubject() == null || ad.getSubject().equals("")) {
 			errorMessage = "Subject can not be empty!";
@@ -117,12 +137,14 @@ public abstract class DataBaseInterraction {
 		}
 		if (errorMessage == null) {
 			ad.setLastModified(Calendar.getInstance().getTimeInMillis());
+			Connection connection = daoFactory.getConnection();
 			if (ad.getId() == 0) {
-				daoFactory.getAdDao().create(ad);
+				daoFactory.getAdDao(connection).create(ad);
 
 			} else {
-				daoFactory.getAdDao().update(ad);
+				daoFactory.getAdDao(connection).update(ad);
 			}
+			connection.close();
 		}
 		return errorMessage;
 	}

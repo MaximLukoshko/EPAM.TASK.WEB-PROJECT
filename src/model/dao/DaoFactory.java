@@ -11,10 +11,10 @@ public interface DaoFactory {
 	/**
 	 * Возвращает объект для управления персистентным состоянием объекта User
 	 */
-	public UserDao getUserDao();
+	public UserDao getUserDao(Connection connection);
 
 	/**
 	 * Возвращает объект для управления персистентным состоянием объекта Ad
 	 */
-	public AdDao getAdDao();
+	public AdDao getAdDao(Connection connection);
 }

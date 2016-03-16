@@ -1,7 +1,5 @@
 package controller.servlet;
 
-import java.sql.Connection;
-
 import javax.naming.InitialContext;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -29,12 +27,10 @@ public class StartupServlet extends HttpServlet {
 		super.init(config);
 		InitialContext initContext;
 		DataSource ds;
-		Connection conn;
 		try {
 			initContext = new InitialContext();
 			ds = (DataSource) initContext.lookup("java:comp/env/jdbc/epam_test_web");
-			conn = ds.getConnection();
-			DaoFactory daoFactory = new MySqlDaoFactory(conn);
+			DaoFactory daoFactory = new MySqlDaoFactory(ds);
 			getServletContext().setAttribute("DaoFactory", daoFactory);
 			log.info("Connection to Database successfully started");
 		} catch (Exception e) {

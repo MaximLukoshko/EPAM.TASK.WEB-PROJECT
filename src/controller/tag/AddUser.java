@@ -1,13 +1,18 @@
 package controller.tag;
 
 import java.io.IOException;
+import java.sql.SQLException;
+
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
+
+import org.apache.log4j.Logger;
 
 import model.actions.DataBaseInterraction;
 import model.entity.User;
 
 public class AddUser extends TagForGettingConnection {
+	private static final Logger log = Logger.getLogger(AddUser.class);
 
 	private User user;
 
@@ -19,7 +24,12 @@ public class AddUser extends TagForGettingConnection {
 	public void doTag() throws JspException, IOException {
 		super.doTag();
 		String errorMessage = null;
-		errorMessage = DataBaseInterraction.addUser(daoFactory, user);
+		try {
+			errorMessage = DataBaseInterraction.addUser(daoFactory, user);
+		} catch (SQLException e) {
+			log.error("Error while DataBase interaction");
+			e.printStackTrace();
+		}
 		getJspContext().setAttribute("errorMessage", errorMessage, PageContext.SESSION_SCOPE);
 	}
 }
