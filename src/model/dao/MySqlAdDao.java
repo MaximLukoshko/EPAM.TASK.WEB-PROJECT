@@ -1,6 +1,7 @@
 package model.dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -27,7 +28,10 @@ public class MySqlAdDao implements AdDao {
 	@Override
 	public Ad read(int id) {
 		try {
-			ResultSet rs = connection.createStatement().executeQuery("select * from Ads where id='" + id + "';");
+			String sql = "SELECT * FROM Ads WHERE id= ?;";
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setInt(1, id);
+			ResultSet rs = statement.executeQuery();
 			if (rs.first()) {
 				Ad ad = new Ad();
 				ad.setAuthorId(rs.getInt("authorId"));

@@ -54,7 +54,8 @@ public abstract class DataBaseInterraction {
 	public static Object getAds(int id, String range, final String sort, final char dir, User authUser,
 			DaoFactory daoFactory) {
 		if (id > 0) {
-			daoFactory.getAdDao().read(id);
+			Ad ad = daoFactory.getAdDao().read(id);
+			return ad;
 		} else {
 			ArrayList<Ad> sortedList = new ArrayList<Ad>();
 			if ("my".equals(range)) {
@@ -90,7 +91,6 @@ public abstract class DataBaseInterraction {
 			}
 			return sortedList;
 		}
-		return null;
 	}
 
 	public static String deleteAd(DaoFactory daoFactory, Ad ad, User currentUser) {

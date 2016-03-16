@@ -11,7 +11,6 @@ public class MySqlDaoFactory implements DaoFactory {
 	private final Connection connection;
 
 	public MySqlDaoFactory(Connection connection) {
-		super();
 		this.connection = connection;
 	}
 
