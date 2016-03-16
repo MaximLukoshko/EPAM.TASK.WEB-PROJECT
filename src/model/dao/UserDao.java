@@ -6,7 +6,7 @@ import model.entity.User;
 
 public interface UserDao {
 	/** Создает новую запись и соответствующий ей объект */
-	public User create();
+	public void create(User user);
 
 	/**
 	 * Возвращает объект соответствующий записи с первичным ключом key или null

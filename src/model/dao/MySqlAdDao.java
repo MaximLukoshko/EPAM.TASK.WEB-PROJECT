@@ -20,9 +20,8 @@ public class MySqlAdDao implements AdDao {
 	}
 
 	@Override
-	public Ad create() {
+	public void create(Ad ad) {
 		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override

@@ -7,7 +7,7 @@ import model.entity.User;
 
 public interface AdDao {
 	/** Создает новую запись и соответствующий ей объект */
-	public Ad create();
+	public void create(Ad ad);
 
 	/**
 	 * Возвращает объект соответствующий записи с первичным ключом key или null

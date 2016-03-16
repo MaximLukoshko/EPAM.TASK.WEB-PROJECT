@@ -1,6 +1,7 @@
 package model.dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -19,18 +20,28 @@ public class MySqlUserDao implements UserDao {
 	}
 
 	@Override
-	public User create() {
-		// TODO Auto-generated method stub
-		return null;
+	public void create(User user) {
+		try {
+			String sql = "insert into Users values (null, ?, ?, ?,?);'";
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setString(1, user.getName());
+			statement.setString(2, user.getEmail());
+			statement.setString(3, user.getLogin());
+			statement.setString(3, user.getPassword());
+			statement.executeUpdate();
+		} catch (SQLException e) {
+			log.error("Failed to create new user " + user.getName());
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public User read(String login) {
 		User user = null;
-		String sql = "select * from Users where login='" + login + "';";
-		Statement stmt;
+		String sql = "select * from Users where login= ? ";
 		try {
-			stmt = connection.createStatement();
+			PreparedStatement stmt = connection.prepareStatement(sql);
+			stmt.setString(1, login);
 			ResultSet rs = stmt.executeQuery(sql);
 			if (rs.first()) {
 				user = new User();
@@ -41,7 +52,7 @@ public class MySqlUserDao implements UserDao {
 				user.setPassword(rs.getString("password"));
 			}
 		} catch (SQLException e) {
-			log.error("Failed to execute Query " + "\"select * from Users where login='" + login + "';\"");
+			log.error("Failed to read user with login " + login);
 			e.printStackTrace();
 		}
 		return user;
@@ -49,15 +60,8 @@ public class MySqlUserDao implements UserDao {
 
 	@Override
 	public void update(User user) {
-		try {
-			Statement st = connection.createStatement();
-			st.executeUpdate("insert into Users values (null, '" + user.getName() + "', '" + user.getEmail() + "', '"
-					+ user.getLogin() + "', '" + user.getPassword() + "');");
-		} catch (SQLException e) {
-			log.error("Failed to execute Query " + "\"insert into Users values (null, '" + user.getName() + "', '"
-					+ user.getEmail() + "', '" + user.getLogin() + "', '" + user.getPassword() + "');\"");
-			e.printStackTrace();
-		}
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
