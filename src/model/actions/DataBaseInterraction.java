@@ -28,7 +28,7 @@ public abstract class DataBaseInterraction {
 				errorMessage = "This Login is busy! Use another one";
 			}
 			if (errorMessage == null) {
-				userDao.update(user);
+				userDao.create(user);
 			}
 		}
 		return errorMessage;
@@ -45,8 +45,9 @@ public abstract class DataBaseInterraction {
 		}
 
 		User user = daoFactory.getUserDao().read(login);
-		if (user == null) {
+		if (user == null || !password.equals(user.getPassword())) {
 			errorMessage.set(0, "Check login/passowrd");
+			user = null;
 		}
 		return user;
 	}

@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
@@ -38,11 +37,11 @@ public class MySqlUserDao implements UserDao {
 	@Override
 	public User read(String login) {
 		User user = null;
-		String sql = "select * from Users where login= ? ";
+		String sql = "select * from Users where login= ?";
 		try {
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			stmt.setString(1, login);
-			ResultSet rs = stmt.executeQuery(sql);
+			ResultSet rs = stmt.executeQuery();
 			if (rs.first()) {
 				user = new User();
 				user.setId(rs.getInt("id"));
