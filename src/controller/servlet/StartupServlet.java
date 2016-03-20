@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.sql.DataSource;
 
 import org.apache.log4j.Logger;
+import org.apache.log4j.Priority;
 
 import model.dao.DaoFactory;
 import model.dao.MySqlDaoFactory;
@@ -23,6 +24,7 @@ public class StartupServlet extends HttpServlet {
 	/**
 	 * @see Servlet#init(ServletConfig)
 	 */
+	@SuppressWarnings("deprecation")
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
 		InitialContext initContext;
@@ -34,7 +36,7 @@ public class StartupServlet extends HttpServlet {
 			getServletContext().setAttribute("DaoFactory", daoFactory);
 			log.info("Connection to Database successfully started");
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.log(Priority.ERROR, "Exeption: ", e);
 			log.error("Connection to Database failed;");
 		}
 		log.info("The servlet successfully started");

@@ -8,6 +8,7 @@ import java.util.Collections;
 import java.util.Comparator;
 
 import org.apache.log4j.Logger;
+import org.apache.log4j.Priority;
 
 import model.dao.DaoFactory;
 import model.dao.UserDao;
@@ -15,7 +16,6 @@ import model.entity.Ad;
 import model.entity.User;
 
 public abstract class DataBaseInterraction {
-	@SuppressWarnings("unused")
 	private static final Logger log = Logger.getLogger(DataBaseInterraction.class);
 
 	public static String addUser(DaoFactory daoFactory, User user) throws SQLException {
@@ -106,9 +106,9 @@ public abstract class DataBaseInterraction {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	public static String deleteAd(DaoFactory daoFactory, Ad ad, User currentUser) {
 		String errorMessage = null;
-		// Проверить, что объявление изменяется его автором, а не чужаком
 		if (currentUser == null || (ad.getId() > 0 && currentUser.getId() != ad.getAuthorId())) {
 			errorMessage = "You can not change this add";
 		}
@@ -119,8 +119,7 @@ public abstract class DataBaseInterraction {
 				daoFactory.getAdDao(connection).delete(ad);
 				connection.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				log.log(Priority.ERROR, "Exeption: ", e);
 			}
 		}
 		return errorMessage;

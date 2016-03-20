@@ -8,12 +8,10 @@ import model.actions.DataBaseInterraction;
 import model.entity.Ad;
 import model.entity.User;
 
-public class DeleteAd extends TagForGettingConnection {
+public class DeleteAd extends TagForGettingDaoFactory {
 
-	// Поле данных для атрибута
 	private Ad ad;
 
-	// Метод-сеттер для установки атрибута (вызывается контейнером)
 	public void setAd(Ad ad) {
 		this.ad = ad;
 	}
@@ -21,8 +19,6 @@ public class DeleteAd extends TagForGettingConnection {
 	@Override
 	public void doTag() throws JspException, IOException {
 		super.doTag();
-		// Изначально описание ошибки = null (т.е. ошибки нет)
-		// Извлечь из сессии описание текущего пользователя
 		User currentUser = (User) getJspContext().getAttribute("authUser", PageContext.SESSION_SCOPE);
 		String errorMessage = null;
 		errorMessage = DataBaseInterraction.deleteAd(daoFactory, ad, currentUser);

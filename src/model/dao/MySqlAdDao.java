@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
+import org.apache.log4j.Priority;
 
 import model.entity.Ad;
 import model.entity.User;
@@ -19,6 +20,7 @@ public class MySqlAdDao implements AdDao {
 		this.connection = connection;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void create(Ad ad) {
 		String sql = "insert into Ads values (null, ?, ?, ?, ?, ?);";
@@ -31,11 +33,13 @@ public class MySqlAdDao implements AdDao {
 			statement.setLong(5, ad.getLastModified());
 			statement.executeUpdate();
 		} catch (SQLException e) {
+			log.log(Priority.ERROR, "Exeption: ", e);
 			log.error("Failed to create Ad " + ad.toString());
-			e.printStackTrace();
+			
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public Ad read(int id) {
 		try {
@@ -54,13 +58,10 @@ public class MySqlAdDao implements AdDao {
 				ad.setSubject(rs.getString("subject"));
 				return ad;
 			}
-		} catch (
-
-		SQLException e)
-
-		{
+		} catch (SQLException e) {
+			log.log(Priority.ERROR, "Exeption: ", e);
 			log.error("Failed to execute Query " + "\"select * from Ads where id='" + id + "';\"");
-			e.printStackTrace();
+			
 		}
 		return null;
 
@@ -78,10 +79,11 @@ public class MySqlAdDao implements AdDao {
 			statement.executeUpdate();
 		} catch (SQLException e) {
 			log.error("Failed to update Ad " + ad.toString());
-			e.printStackTrace();
+			
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void delete(Ad ad) {
 		String sql = "delete from Ads where id = ?;";
@@ -90,11 +92,13 @@ public class MySqlAdDao implements AdDao {
 			statement.setInt(1, ad.getId());
 			statement.executeUpdate();
 		} catch (SQLException e) {
+			log.log(Priority.ERROR, "Exeption: ", e);
 			log.error("Failed to delete ad " + ad.toString());
-			e.printStackTrace();
+			
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public ArrayList<Ad> getAll() {
 		ArrayList<Ad> adList = new ArrayList<Ad>();
@@ -115,12 +119,14 @@ public class MySqlAdDao implements AdDao {
 				} while (rs.next());
 			}
 		} catch (SQLException e) {
+			log.log(Priority.ERROR, "Exeption: ", e);
 			log.error("Failed to get all ads");
-			e.printStackTrace();
+			
 		}
 		return adList;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public ArrayList<Ad> read(User authUser) {
 		ArrayList<Ad> adList = new ArrayList<Ad>();
@@ -140,8 +146,9 @@ public class MySqlAdDao implements AdDao {
 				} while (rs.next());
 			}
 		} catch (SQLException e) {
+			log.log(Priority.ERROR, "Exeption: ", e);
 			log.error("Failed to execute Query " + "\"" + query + "\"");
-			e.printStackTrace();
+			
 		}
 		return adList;
 	}

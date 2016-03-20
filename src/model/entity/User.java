@@ -4,15 +4,10 @@ import java.io.Serializable;
 
 @SuppressWarnings("serial")
 public class User implements Serializable, Identifiable {
-	// Идентификатор пользователя
 	private int id;
-	// Логин пользователя
 	private String login = "";
-	// Имя пользователя
 	private String name = "";
-	// Пароль пользователя
 	private String password = "";
-	// Email пользователя
 	private String email = "";
 
 	public String getLogin() {
@@ -58,18 +53,13 @@ public class User implements Serializable, Identifiable {
 
 	@Override
 	public boolean equals(Object obj) {
-		// Если obj - ссылка на другой объект, равна this, то это один и
-		// тот же объект
 		if (this == obj)
 			return true;
-		// Если ссылка на другой объект - null, то объекты не равны
 		if (obj == null)
 			return false;
-		// Если классы объектных ссылок не совпадают, объекты не равны
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		// Результат сравнения решается равенством идентификаторов
 		if (id != other.id)
 			return false;
 		return true;

@@ -7,21 +7,18 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 
 import org.apache.log4j.Logger;
+import org.apache.log4j.Priority;
 
 import model.actions.DataBaseInterraction;
 import model.entity.User;
 
-public class GetAds extends TagForGettingConnection {
+public class GetAds extends TagForGettingDaoFactory {
 	private static final Logger log = Logger.getLogger(GetAds.class);
 
 	private int id = 0;
-	// Поле данных для атрибута range (диапазон объявлений)
 	private String range;
-	// Поле данных для атрибута sort (основание сортировки)
 	private String sort;
-	// Поле данных для атрибута dir (направление сортировки)
 	private char dir;
-	// Поле данных для атрибута var (контейнер результата)
 	private String var;
 
 	public void setId(int id) {
@@ -44,6 +41,7 @@ public class GetAds extends TagForGettingConnection {
 		this.var = var;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void doTag() throws JspException, IOException {
 		super.doTag();
@@ -52,8 +50,9 @@ public class GetAds extends TagForGettingConnection {
 		try {
 			result = DataBaseInterraction.getAds(id, range, sort, dir, authUser, daoFactory);
 		} catch (SQLException e) {
+			log.log(Priority.ERROR, "Exeption: ", e);
 			log.error("Error while DataBase interaction");
-			e.printStackTrace();
+			
 		}
 		getJspContext().setAttribute(GetAds.this.var, result, PageContext.PAGE_SCOPE);
 	}

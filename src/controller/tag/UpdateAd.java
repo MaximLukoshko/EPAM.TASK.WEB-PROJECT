@@ -7,12 +7,13 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 
 import org.apache.log4j.Logger;
+import org.apache.log4j.Priority;
 
 import model.actions.DataBaseInterraction;
 import model.entity.Ad;
 import model.entity.User;
 
-public class UpdateAd extends TagForGettingConnection {
+public class UpdateAd extends TagForGettingDaoFactory {
 	private static final Logger log = Logger.getLogger(UpdateAd.class);
 
 	private Ad ad;
@@ -21,6 +22,7 @@ public class UpdateAd extends TagForGettingConnection {
 		this.ad = ad;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void doTag() throws JspException, IOException {
 		super.doTag();
@@ -29,8 +31,8 @@ public class UpdateAd extends TagForGettingConnection {
 		try {
 			errorMessage = DataBaseInterraction.updateAd(daoFactory, ad, currentUser);
 		} catch (SQLException e) {
+			log.log(Priority.ERROR, "Exeption: ", e);
 			log.error("Error while DataBase interaction");
-			e.printStackTrace();
 		}
 		getJspContext().setAttribute("errorMessage", errorMessage, PageContext.SESSION_SCOPE);
 	}
