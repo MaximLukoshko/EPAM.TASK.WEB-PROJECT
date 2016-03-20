@@ -1,14 +1,18 @@
 package controller.tag;
 
 import java.io.IOException;
+import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 
 import org.apache.log4j.Logger;
 
-import model.actions.DataBaseInterraction;
+import model.entity.Ad;
 import model.entity.User;
 
 public class GetAds extends TagForGettingConnection {
@@ -50,7 +54,49 @@ public class GetAds extends TagForGettingConnection {
 		final User authUser = (User) getJspContext().getAttribute("authUser", PageContext.SESSION_SCOPE);
 		Object result = null;
 		try {
-			result = DataBaseInterraction.getAds(id, range, sort, dir, authUser, daoFactory);
+			if (id > 0) {
+				Connection connection = daoFactory.getConnection();
+				Ad ad = daoFactory.getAdDao(connection).read(id);
+				connection.close();
+				result = ad;
+			} else {
+				Connection connection = daoFactory.getConnection();
+				ArrayList<Ad> sortedList = new ArrayList<Ad>();
+				if ("my".equals(range)) {
+					sortedList = daoFactory.getAdDao(connection).read(authUser);
+				} else {
+					sortedList = daoFactory.getAdDao(connection).getAll();
+				}
+				connection.close();
+
+				Comparator<Ad> comparator = new Comparator<Ad>() {
+
+					@Override
+					public int compare(Ad ad1, Ad ad2) {
+						int result = 0;
+						if (sort != null && sort.equals("date")) {
+							result = ad1.getLastModified() < ad2.getLastModified() ? -1
+									: ad1.getLastModified() > ad2.getLastModified() ? 1 : 0;
+						} else if (sort != null && sort.equals("subject")) {
+							result = ad1.getSubject().compareTo(ad2.getSubject());
+						} else {
+							result = ad1.getAuthorName().compareTo(ad2.getAuthorName());
+						}
+						if (dir == 'd') {
+							result = -result;
+						}
+						return result;
+					}
+
+				};
+
+				if (sortedList.size() == 0) {
+					sortedList = null;
+				} else {
+					Collections.sort(sortedList, comparator);
+				}
+				result = sortedList;
+			}
 		} catch (SQLException e) {
 			log.error("Error while DataBase interaction");
 			e.printStackTrace();

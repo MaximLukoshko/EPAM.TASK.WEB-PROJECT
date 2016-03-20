@@ -1,10 +1,11 @@
 package controller.tag;
 
 import java.io.IOException;
+import java.sql.SQLException;
+
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 
-import model.actions.DataBaseInterraction;
 import model.entity.Ad;
 import model.entity.User;
 
@@ -21,12 +22,22 @@ public class DeleteAd extends TagForGettingConnection {
 	@Override
 	public void doTag() throws JspException, IOException {
 		super.doTag();
-		// Изначально описание ошибки = null (т.е. ошибки нет)
-		// Извлечь из сессии описание текущего пользователя
 		User currentUser = (User) getJspContext().getAttribute("authUser", PageContext.SESSION_SCOPE);
 		String errorMessage = null;
-		errorMessage = DataBaseInterraction.deleteAd(daoFactory, ad, currentUser);
-
+		if (currentUser == null || (ad.getId() > 0 && currentUser.getId() != ad.getAuthorId())) {
+			errorMessage = "You can not change this add";
+		}
+		if (errorMessage == null) {
+			java.sql.Connection connection;
+			try {
+				connection = daoFactory.getConnection();
+				daoFactory.getAdDao(connection).delete(ad);
+				connection.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		getJspContext().setAttribute("errorMessage", errorMessage, PageContext.SESSION_SCOPE);
 	}
 }

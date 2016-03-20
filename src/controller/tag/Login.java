@@ -1,15 +1,13 @@
 package controller.tag;
 
 import java.io.IOException;
+import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
-
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 
 import org.apache.log4j.Logger;
 
-import model.actions.DataBaseInterraction;
 import model.entity.User;
 
 public class Login extends TagForGettingConnection {
@@ -28,21 +26,28 @@ public class Login extends TagForGettingConnection {
 
 	@Override
 	public void doTag() throws JspException, IOException {
-		ArrayList<String> errorMessage = new ArrayList<String>();
 		super.doTag();
+		String errorMessage = null;
 		User user = null;
 		try {
-			user = DataBaseInterraction.login(daoFactory, login, password, errorMessage);
+			if (login == null || login.equals("")) {
+				errorMessage = "Login can not be empty!";
+			}
+
+			Connection connection = daoFactory.getConnection();
+			user = daoFactory.getUserDao(connection).read(login);
+			connection.close();
+			if (user == null || !password.equals(user.getPassword())) {
+				errorMessage = "Check login/passowrd";
+				user = null;
+			}
 		} catch (SQLException e) {
 			log.error("Error while DataBase interaction");
 			e.printStackTrace();
 		}
 		getJspContext().setAttribute("userLogin", login, PageContext.SESSION_SCOPE);
 		getJspContext().setAttribute("authUser", user, PageContext.SESSION_SCOPE);
-		if (errorMessage.get(0).equals("")) {
-			errorMessage.set(0, null);
-		}
-		getJspContext().setAttribute("errorMessage", errorMessage.get(0), PageContext.SESSION_SCOPE);
+		getJspContext().setAttribute("errorMessage", errorMessage, PageContext.SESSION_SCOPE);
 	}
 
 }
