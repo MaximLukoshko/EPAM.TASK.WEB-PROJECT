@@ -8,11 +8,12 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 
 import org.apache.log4j.Logger;
+import org.apache.log4j.Priority;
 
 import model.dao.UserDao;
 import model.entity.User;
 
-public class AddUser extends TagForGettingConnection {
+public class AddUser extends TagForGettingDaoFactory {
 	private static final Logger log = Logger.getLogger(AddUser.class);
 
 	private User user;
@@ -21,6 +22,7 @@ public class AddUser extends TagForGettingConnection {
 		this.user = user;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void doTag() throws JspException, IOException {
 		super.doTag();
@@ -42,8 +44,9 @@ public class AddUser extends TagForGettingConnection {
 				connection.close();
 			}
 		} catch (SQLException e) {
+			log.log(Priority.ERROR, "Exeption: ", e);
 			log.error("Error while DataBase interaction");
-			e.printStackTrace();
+			
 		}
 		getJspContext().setAttribute("errorMessage", errorMessage, PageContext.SESSION_SCOPE);
 	}

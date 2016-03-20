@@ -7,7 +7,7 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
 
 import model.dao.DaoFactory;
 
-public class TagForGettingConnection extends SimpleTagSupport {
+public class TagForGettingDaoFactory extends SimpleTagSupport {
 	protected DaoFactory daoFactory;
 
 	@Override

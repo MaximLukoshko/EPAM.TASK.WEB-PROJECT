@@ -5,8 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
 import org.apache.log4j.Logger;
+import org.apache.log4j.Priority;
 
 import model.entity.User;
 
@@ -18,6 +18,7 @@ public class MySqlUserDao implements UserDao {
 		this.connection = connection;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void create(User user) {
 		try {
@@ -29,11 +30,12 @@ public class MySqlUserDao implements UserDao {
 			statement.setString(3, user.getPassword());
 			statement.executeUpdate();
 		} catch (SQLException e) {
+			log.log(Priority.ERROR, "Exeption: ", e);
 			log.error("Failed to create new user " + user.getName());
-			e.printStackTrace();
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public User read(String login) {
 		User user = null;
@@ -51,8 +53,9 @@ public class MySqlUserDao implements UserDao {
 				user.setPassword(rs.getString("password"));
 			}
 		} catch (SQLException e) {
+			log.log(Priority.ERROR, "Exeption: ", e);
 			log.error("Failed to read user with login " + login);
-			e.printStackTrace();
+			
 		}
 		return user;
 	}

@@ -8,17 +8,11 @@ import java.util.Date;
 public class Ad implements Identifiable, Serializable {
 
 	private int id = 0;
-	// Заголовок сообщения
 	private String subject = "";
-	// Текст сообщения
 	private String body = "";
-	// Автор сообщения (id)
 	private int authorId;
-	// Автор сообщения (ссылка, не сериализуется)
 	transient private String authorName;
-	// Последнее время модификации сообщения
 	private Long lastModified;
-	// Последнее время модификации сообщения как объект Date
 	transient private Date lastModifiedDate;
 
 	public Ad() {

@@ -9,12 +9,10 @@ import javax.servlet.jsp.PageContext;
 import model.entity.Ad;
 import model.entity.User;
 
-public class DeleteAd extends TagForGettingConnection {
+public class DeleteAd extends TagForGettingDaoFactory {
 
-	// Поле данных для атрибута
 	private Ad ad;
 
-	// Метод-сеттер для установки атрибута (вызывается контейнером)
 	public void setAd(Ad ad) {
 		this.ad = ad;
 	}
