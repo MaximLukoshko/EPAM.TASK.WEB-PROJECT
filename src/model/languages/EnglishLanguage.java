@@ -2,7 +2,7 @@ package model.languages;
 
 import org.apache.log4j.Logger;
 
-public class EnglishLanguage extends AbstractLanguage {
+public class EnglishLanguage extends AbstractLanguage implements ILanguage{
 	@SuppressWarnings("unused")
 	private static final Logger log = Logger.getLogger(EnglishLanguage.class);
 
@@ -20,7 +20,7 @@ public class EnglishLanguage extends AbstractLanguage {
 		LastModifiedDate = "Last-Modified-Date";
 		Login = "Login";
 		Password = "Password";
-		this.setName("Name");
+		Name = "Name";
 		Email = "E-mail";
 		Body = "Body";
 

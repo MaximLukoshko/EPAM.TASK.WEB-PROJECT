@@ -1,5 +1,6 @@
 package model.languages;
 
 public interface ILanguageSimpleFactory {
-	public AbstractLanguage getLanguage(String language);
+
+	ILanguage getLanguage(String language);
 }

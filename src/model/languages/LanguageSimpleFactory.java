@@ -6,7 +6,7 @@ public class LanguageSimpleFactory implements ILanguageSimpleFactory {
 	private static final Logger log = Logger.getLogger(LanguageSimpleFactory.class);
 
 	@Override
-	public AbstractLanguage getLanguage(String language) {
+	public ILanguage getLanguage(String language) {
 
 		if (language.equals("eng")) {
 			return new EnglishLanguage();
