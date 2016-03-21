@@ -3,18 +3,17 @@ package model.languages;
 import org.apache.log4j.Logger;
 
 public class LanguageSimpleFactory implements ILanguageSimpleFactory {
-	@SuppressWarnings("unused")
 	private static final Logger log = Logger.getLogger(LanguageSimpleFactory.class);
 
 	@Override
 	public AbstractLanguage getLanguage(String language) {
-		AbstractLanguage _language;
 
-		if (language.equals("russian")) {
+		if (language.equals("eng")) {
+			return new EnglishLanguage();
+		} else if (language.equals("rus")) {
 
 		}
-
-		_language = new EnglishLanguage();
-		return _language;
+		log.info("Not Valid parameter of language. The value of parameter is " + language);
+		return new EnglishLanguage();
 	}
 }

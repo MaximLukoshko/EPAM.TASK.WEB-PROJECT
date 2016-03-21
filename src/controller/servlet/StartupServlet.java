@@ -39,6 +39,9 @@ public class StartupServlet extends HttpServlet {
 			log.log(Priority.ERROR, "Exeption: ", e);
 			log.error("Connection to Database failed;");
 		}
+//		LanguageSimpleFactory languageSimpleFactory = new LanguageSimpleFactory();
+//		getServletContext().setAttribute("Language", languageSimpleFactory.getLanguage("eng"));
+
 		log.info("The servlet successfully started");
 	}
 
