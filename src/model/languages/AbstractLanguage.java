@@ -6,29 +6,29 @@ public abstract class AbstractLanguage {
 	@SuppressWarnings("unused")
 	private static final Logger log = Logger.getLogger(AbstractLanguage.class);
 
-	private String BulletinBoard = null;
-	private String BoardName = null;
-	private String YouEnteredAs = null;
-	private String ListOfAds = null;
-	private String PersonalCabinet = null;
+	protected String BulletinBoard = null;
+	protected String BoardName = null;
+	protected String YouEnteredAs = null;
+	protected String ListOfAds = null;
+	protected String PersonalCabinet = null;
 
-	private String Subject = null;;
-	private String Type = null;
-	private String Author = null;
-	private String LastModifiedDate = null;
-	private String Login = null;
-	private String Password = null;
-	private String Name = null;
-	private String Email = null;
-	private String Body = null;
+	protected String Subject = null;;
+	protected String Type = null;
+	protected String Author = null;
+	protected String LastModifiedDate = null;
+	protected String Login = null;
+	protected String Password = null;
+	protected String Name = null;
+	protected String Email = null;
+	protected String Body = null;
 
-	private String LoginButtonName = null;
-	private String SignUpButtonName = null;
-	private String CancelButtonName = null;
-	private String CreateButtonName = null;
-	private String LogOutButtonName = null;
-	private String MainButtonName = null;
-	private String CabinetButtonName = null;
+	protected String LoginButtonName = null;
+	protected String SignUpButtonName = null;
+	protected String CancelButtonName = null;
+	protected String CreateButtonName = null;
+	protected String LogOutButtonName = null;
+	protected String MainButtonName = null;
+	protected String CabinetButtonName = null;
 
 	public String getBulletinBoard() {
 		return BulletinBoard;
