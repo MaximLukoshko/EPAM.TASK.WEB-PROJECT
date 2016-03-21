@@ -31,7 +31,7 @@ public class RussianLanguage extends AbstractLanguage {
 		LogOutButtonName = "Выйти";
 		MainButtonName = "Главная";
 		CabinetButtonName = "Кабинет";
-		EditButtonName = "Редактировать";
-		DeleteButtonName = "Удалить";
+		EditButtonName = "Ред.";
+		DeleteButtonName = "Уд.";
 	}
 }

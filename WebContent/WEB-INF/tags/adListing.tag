@@ -14,7 +14,7 @@
 <c:if test="${adListing!=null }">
 	<table style="width: 100%;">
 		<tr bgcolor="#cccccc" align="center">
-			<td>Subject<br> <a
+			<td><c:out value="${language.subject }  " /><br> <a
 				href="<c:url value="${pageContext.request.requestURL}">
 				<c:param name="sort" value="subject"/>
 				<c:param name="dir" value="asc"/></c:url>"><img
@@ -27,7 +27,7 @@
 					src="<c:url value="/resources/desc.png"/>" width="20" height="19"
 					border="0"></a>
 			</td>
-			<td style="width: 20%">Author<br> <a
+			<td style="width: 20%"><c:out value="${language.author }  " /><br> <a
 				href="<c:url value="${pageContext.request.requestURL}">
 				<c:param name="sort" value="author"/>
 				<c:param name="dir" value="asc"/>
@@ -38,7 +38,7 @@
 					src="<c:url value="/resources/desc.png"/>" width="20" height="19"
 					border="0"></a>
 			</td>
-			<td style="width: 30%">Last-Modified Date<br> <a
+			<td style="width: 30%"><c:out value="${language.lastModifiedDate }  " /><br> <a
 				href="<c:url value="${pageContext.request.requestURL}">
 				<c:param name="sort" value="date"/>
 				<c:param name="dir" value="asc"/>

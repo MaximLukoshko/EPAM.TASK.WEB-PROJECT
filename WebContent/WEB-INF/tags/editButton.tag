@@ -12,7 +12,7 @@
 		<a
 			href="<c:url value="/jsp_pages/ad/updateAd.jsp">
 			<c:param name="id" value="${ad.id}" />
-			</c:url>">Edit</a>
+			</c:url>"><c:out value="${language.editButtonName }  " /></a>
 	</div>
 
 </c:if>
