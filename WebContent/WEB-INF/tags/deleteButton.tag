@@ -10,7 +10,7 @@
 		<a
 			href="<c:url value="/jsp_pages/ad/doDeleteAd.jsp">
 			<c:param name="id" value="${ad.id}" />
-			</c:url>">Delete</a>
+			</c:url>"><c:out value="${language.deleteButtonName }  " /></a>
 	</div>
 
 </c:if>

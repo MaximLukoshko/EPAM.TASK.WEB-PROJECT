@@ -6,17 +6,17 @@
 	<form action="${processor }" method="post">
 		<table>
 			<tr>
-				<td>Login:</td>
+				<td><c:out value="${language.login }  " />:</td>
 				<td><input type="text" name="login"
 					value="${sessionScope.userLogin }"></td>
 			</tr>
 			<tr>
-				<td>Password:</td>
+				<td><c:out value="${language.password }  " />:</td>
 				<td><input type="password" name="password" value=""></td>
 			</tr>
 			<tr>
 				<%-- <td>&nbsp;</td>--%>
-				<td><input type="submit" value="Log In"></td>
+				<td><input type="submit" value="<c:out value="${language.loginButtonName }  " />"></td>
 			</tr>
 		</table>
 	</form>

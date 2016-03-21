@@ -29,6 +29,8 @@ public abstract class AbstractLanguage implements ILanguage{
 	protected String LogOutButtonName = null;
 	protected String MainButtonName = null;
 	protected String CabinetButtonName = null;
+	protected String EditButtonName = null;
+	protected String DeleteButtonName = null;
 
 	public String getBulletinBoard() {
 		return BulletinBoard;
@@ -112,5 +114,13 @@ public abstract class AbstractLanguage implements ILanguage{
 
 	public String getCabinetButtonName() {
 		return CabinetButtonName;
+	}
+
+	public String getDeleteButtonName() {
+		return DeleteButtonName;
+	}
+
+	public String getEditButtonName() {
+		return EditButtonName;
 	}
 }

@@ -5,5 +5,5 @@
 
 <c:if test="${sessionSope.authUser==null }">
 	<my:clearErrorMessage />
-	<a href="${processor }">Sign Up</a>
+	<a href="${processor }"><c:out value="${language.signUpButtonName }  " /></a>
 </c:if>

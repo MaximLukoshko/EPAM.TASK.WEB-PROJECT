@@ -2,7 +2,7 @@ package model.languages;
 
 import org.apache.log4j.Logger;
 
-public class EnglishLanguage extends AbstractLanguage implements ILanguage{
+public class EnglishLanguage extends AbstractLanguage implements ILanguage {
 	@SuppressWarnings("unused")
 	private static final Logger log = Logger.getLogger(EnglishLanguage.class);
 
@@ -31,5 +31,7 @@ public class EnglishLanguage extends AbstractLanguage implements ILanguage{
 		LogOutButtonName = "Log Out";
 		MainButtonName = "Main";
 		CabinetButtonName = "Cabinet";
+		EditButtonName = "Edit";
+		DeleteButtonName = "Delete";
 	}
 }

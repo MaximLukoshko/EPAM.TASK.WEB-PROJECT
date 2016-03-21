@@ -38,6 +38,10 @@ public interface ILanguage {
 
 	public String getCreateButtonName();
 
+	public String getDeleteButtonName();
+
+	public String getEditButtonName();
+
 	public String getLogOutButtonName();
 
 	public String getMainButtonName();
