@@ -5,7 +5,7 @@ import org.apache.log4j.Logger;
 public class RussianLanguage extends AbstractLanguage {
 	@SuppressWarnings("unused")
 	private static final Logger log = Logger.getLogger(RussianLanguage.class);
-	
+
 	public RussianLanguage() {
 		super();
 		BulletinBoard = "Доска объявлений";
@@ -23,7 +23,7 @@ public class RussianLanguage extends AbstractLanguage {
 		Password = "Пароль";
 		Name = "Имя";
 		Email = "E-mail";
-		Body = "обЪявление";
+		Body = "ОбЪявление";
 
 		LoginButtonName = "Войти";
 		SignUpButtonName = "Зарегистрироваться";
@@ -34,5 +34,6 @@ public class RussianLanguage extends AbstractLanguage {
 		CabinetButtonName = "Кабинет";
 		EditButtonName = "Ред.";
 		DeleteButtonName = "Уд.";
+		Language = "Язык";
 	}
 }

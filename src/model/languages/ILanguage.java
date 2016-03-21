@@ -49,4 +49,6 @@ public interface ILanguage {
 	public String getCabinetButtonName();
 
 	public String getRegisterNewUser();
+	
+	public String getLanguage();
 }

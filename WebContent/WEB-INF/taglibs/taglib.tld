@@ -105,7 +105,7 @@
 		<attribute>
 			<name>language</name>
 			<required>true</required>
-			<rtexprvalue>false</rtexprvalue>
+			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>
 </taglib>
