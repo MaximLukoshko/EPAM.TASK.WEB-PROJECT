@@ -16,35 +16,36 @@
 <body>
 	<jsp:include page="../static/header.jsp"></jsp:include>
 	<comp:layout1Column>
-		<h1>Register new user</h1>
+		<h1>
+			<c:out value="${language.registerNewUser }" /></h1>
 		<comp:errorMessage />
 		<my:clearErrorMessage />
 
 		<form action="doRegister.jsp" method="post">
 			<table>
 				<tr>
-					<td>Login:</td>
+					<td><c:out value="${language.login }  " />:</td>
 					<td><input type="text" name="login"
 						value="${sessionScope.userData.login }"></td>
 				</tr>
 				<tr>
-					<td>Password:</td>
+					<td><c:out value="${language.password }  " />:</td>
 					<td><input type="password" name="password"
 						value="${sessionScope.userData.password }"></td>
 				</tr>
 				<tr>
-					<td>Name:</td>
+					<td><c:out value="${language.name } " />:</td>
 					<td><input type="text" name="name"
 						value="${sessionScope.userData.name }"></td>
 				</tr>
 				<tr>
-					<td>E-mail:</td>
+					<td><c:out value="${language.email }" />:</td>
 					<td><input type="text" name="email"
 						value="${sessionScope.userData.email }"></td>
 				</tr>
 				<tr>
-					<td><input type="submit" value="Sign Up"></td>
-					<td><input type="button" value="Cancel"
+					<td><input type="submit" value="${language.signUpButtonName }"></td>
+					<td><input type="button" value="${language.cancelButtonName }"
 						onclick="window.location='<c:remove var="userData" scope="session" /><c:url value="../index.jsp" />';"></td>
 				</tr>
 

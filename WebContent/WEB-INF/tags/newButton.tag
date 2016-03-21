@@ -5,6 +5,6 @@
 <c:if test="${sessionScope.authUser!=null }">
 	<div
 		style="background-color: #ccc; border: 1px solid black; float: right; margin: 10px; margin-top: 20px; padding: 5px 0px; text-align: center; width: 150px;">
-		<a href="<c:url value="/jsp_pages/ad/updateAd.jsp" />">Create</a>
+		<a href="<c:url value="/jsp_pages/ad/updateAd.jsp" />"><c:out value="${language.createButtonName }  " /></a>
 	</div>
 </c:if>

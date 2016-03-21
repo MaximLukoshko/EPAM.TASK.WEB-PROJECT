@@ -13,6 +13,7 @@ public class EnglishLanguage extends AbstractLanguage implements ILanguage {
 		YouEnteredAs = "You entered as";
 		ListOfAds = "List of Ads";
 		PersonalCabinet = "Personal Cabinet";
+		RegisterNewUser = "Register New User";
 
 		Subject = "Subject";
 		Type = "Type";

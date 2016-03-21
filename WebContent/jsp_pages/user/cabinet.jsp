@@ -24,7 +24,7 @@
 <body>
 	<jsp:include page="../static/header.jsp"></jsp:include>
 	<comp:newButton />
-	<h1>Personal cabinet</h1>
+	<h1><c:out value="${language.personalCabinet }  " /></h1>
 	<comp:layout1Column>
 		<my:getAds range="my" var="adListing" sort="${sessionScope.sort}"
 			dir="${sessionScope.dir}" />

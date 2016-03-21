@@ -2,7 +2,7 @@ package model.languages;
 
 import org.apache.log4j.Logger;
 
-public abstract class AbstractLanguage implements ILanguage{
+public abstract class AbstractLanguage implements ILanguage {
 	@SuppressWarnings("unused")
 	private static final Logger log = Logger.getLogger(AbstractLanguage.class);
 
@@ -11,6 +11,7 @@ public abstract class AbstractLanguage implements ILanguage{
 	protected String YouEnteredAs = null;
 	protected String ListOfAds = null;
 	protected String PersonalCabinet = null;
+	protected String RegisterNewUser = null;
 
 	protected String Subject = null;;
 	protected String Type = null;
@@ -122,5 +123,10 @@ public abstract class AbstractLanguage implements ILanguage{
 
 	public String getEditButtonName() {
 		return EditButtonName;
+	}
+
+	public String getRegisterNewUser() {
+
+		return RegisterNewUser;
 	}
 }

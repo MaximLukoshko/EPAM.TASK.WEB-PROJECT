@@ -13,6 +13,7 @@ public class RussianLanguage extends AbstractLanguage {
 		YouEnteredAs = "Вы вошли как";
 		ListOfAds = "Список объявлений";
 		PersonalCabinet = "Личный кабинет";
+		RegisterNewUser = "Регистрация нового пользователя";
 
 		Subject = "Название";
 		Type = "Тип";
