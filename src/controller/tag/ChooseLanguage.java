@@ -3,6 +3,7 @@ package controller.tag;
 import java.io.IOException;
 
 import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 
 import org.apache.log4j.Logger;
@@ -17,9 +18,9 @@ public class ChooseLanguage extends SimpleTagSupport {
 
 	@Override
 	public void doTag() throws JspException, IOException {
-
 		LanguageSimpleFactory languageSimpleFactory = new LanguageSimpleFactory();
-		getJspContext().setAttribute("Language", languageSimpleFactory.getLanguage(language));
+		getJspContext().setAttribute("Language", languageSimpleFactory.getLanguage(language),
+				PageContext.SESSION_SCOPE);
 	}
 
 	// public String getLanguage() {

@@ -2,6 +2,12 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="comp" tagdir="/WEB-INF/tags/"%>
+<%@taglib prefix="my" uri="/WEB-INF/taglibs/taglib.tld"%>
+
+<my:chooseLanguage language="eng" />
+<%-- 
+<jsp:useBean id="language" class="model.languages.AbstractLanguage" scope="session"/>
+--%>
 
 <%-- Обработать параметр сортировки --%>
 <c:if test="${param.sort!=null}">

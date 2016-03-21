@@ -2,7 +2,7 @@ package model.languages;
 
 import org.apache.log4j.Logger;
 
-public abstract class AbstractLanguage {
+public class AbstractLanguage {
 	@SuppressWarnings("unused")
 	private static final Logger log = Logger.getLogger(AbstractLanguage.class);
 
@@ -113,4 +113,90 @@ public abstract class AbstractLanguage {
 	public String getCabinetButtonName() {
 		return CabinetButtonName;
 	}
+
+	public void setBulletinBoard(String bulletinBoard) {
+		BulletinBoard = bulletinBoard;
+	}
+
+	public void setBoardName(String boardName) {
+		BoardName = boardName;
+	}
+
+	public void setYouEnteredAs(String youEnteredAs) {
+		YouEnteredAs = youEnteredAs;
+	}
+
+	public void setListOfAds(String listOfAds) {
+		ListOfAds = listOfAds;
+	}
+
+	public void setPersonalCabinet(String personalCabinet) {
+		PersonalCabinet = personalCabinet;
+	}
+
+	public void setSubject(String subject) {
+		Subject = subject;
+	}
+
+	public void setType(String type) {
+		Type = type;
+	}
+
+	public void setAuthor(String author) {
+		Author = author;
+	}
+
+	public void setLastModifiedDate(String lastModifiedDate) {
+		LastModifiedDate = lastModifiedDate;
+	}
+
+	public void setLogin(String login) {
+		Login = login;
+	}
+
+	public void setPassword(String password) {
+		Password = password;
+	}
+
+	public void setName(String name) {
+		Name = name;
+	}
+
+	public void setEmail(String email) {
+		Email = email;
+	}
+
+	public void setBody(String body) {
+		Body = body;
+	}
+
+	public void setLoginButtonName(String loginButtonName) {
+		LoginButtonName = loginButtonName;
+	}
+
+	public void setSignUpButtonName(String signUpButtonName) {
+		SignUpButtonName = signUpButtonName;
+	}
+
+	public void setCancelButtonName(String cancelButtonName) {
+		CancelButtonName = cancelButtonName;
+	}
+
+	public void setCreateButtonName(String createButtonName) {
+		CreateButtonName = createButtonName;
+	}
+
+	public void setLogOutButtonName(String logOutButtonName) {
+		LogOutButtonName = logOutButtonName;
+	}
+
+	public void setMainButtonName(String mainButtonName) {
+		MainButtonName = mainButtonName;
+	}
+
+	public void setCabinetButtonName(String cabinetButtonName) {
+		CabinetButtonName = cabinetButtonName;
+	}
+	
+	
 }

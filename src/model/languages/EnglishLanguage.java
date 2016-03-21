@@ -7,6 +7,7 @@ public class EnglishLanguage extends AbstractLanguage {
 	private static final Logger log = Logger.getLogger(EnglishLanguage.class);
 
 	public EnglishLanguage() {
+		super();
 		BulletinBoard = "Bulletin Board";
 		BoardName = "Figa List";
 		YouEnteredAs = "You entered as";
@@ -19,7 +20,7 @@ public class EnglishLanguage extends AbstractLanguage {
 		LastModifiedDate = "Last-Modified-Date";
 		Login = "Login";
 		Password = "Password";
-		Name = "Name";
+		this.setName("Name");
 		Email = "E-mail";
 		Body = "Body";
 
