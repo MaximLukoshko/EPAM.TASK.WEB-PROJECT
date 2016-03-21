@@ -25,7 +25,7 @@ public class EnglishLanguage extends AbstractLanguage implements ILanguage{
 		Body = "Body";
 
 		LoginButtonName = "Log In";
-		SignUpButtonName = "SignUp";
+		SignUpButtonName = "Sign Up";
 		CancelButtonName = "Cancel";
 		CreateButtonName = "Create";
 		LogOutButtonName = "Log Out";

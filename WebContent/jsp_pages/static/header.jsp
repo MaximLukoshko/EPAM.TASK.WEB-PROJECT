@@ -33,10 +33,10 @@
 	<div style="background-color: #ccc; padding: 5px">
 		<div
 			style="background-color: #ccc; border: 1px solid black; float: right; margin: 1px; margin-top: 1px; padding: 1px 0px; text-align: center; width: 150px;">
-			<a href="<c:url value= "/jsp_pages/user/doLogout.jsp" />">Log Out</a>
+			<a href="<c:url value= "/jsp_pages/user/doLogout.jsp" />"><c:out value="${language.logOutButtonName }  " /></a>
 		</div>
 		<div style="float: left;">
-			You entered as:
+			<c:out value="${language.youEnteredAs }  " />:
 			<c:out value="${sessionScope.authUser.name}" />
 			(
 			<c:out value="${sessionScope.authUser.login}" />
