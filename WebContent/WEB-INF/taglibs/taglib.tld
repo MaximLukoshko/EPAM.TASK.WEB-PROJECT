@@ -98,4 +98,14 @@
 		<tag-class>controller.tag.ClearErrorMessage</tag-class>
 		<body-content>empty</body-content>
 	</tag>
+	<tag>
+		<name>chooseLanguage</name>
+		<tag-class>controller.tag.ChooseLanguage</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>language</name>
+			<required>true</required>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>
+	</tag>
 </taglib>
