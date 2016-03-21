@@ -4,7 +4,7 @@
 <%@taglib prefix="comp" tagdir="/WEB-INF/tags/"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<c:set var="language" scope="session" value="${sessionScope.Language }"/>
+<c:set var="language" scope="session" value="${sessionScope.Language }" />
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -47,8 +47,6 @@
 						<c:url value="/jsp_pages/user/register.jsp" />
 					</jsp:attribute>
 				</comp:registerButton>
-					
-					
 					
 					</c:if>
 		</jsp:attribute>

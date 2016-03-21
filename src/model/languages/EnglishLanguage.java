@@ -32,5 +32,4 @@ public class EnglishLanguage extends AbstractLanguage implements ILanguage{
 		MainButtonName = "Main";
 		CabinetButtonName = "Cabinet";
 	}
-
 }

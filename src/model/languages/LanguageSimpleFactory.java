@@ -11,7 +11,7 @@ public class LanguageSimpleFactory implements ILanguageSimpleFactory {
 		if (language.equals("eng")) {
 			return new EnglishLanguage();
 		} else if (language.equals("rus")) {
-
+			return new RussianLanguage();
 		}
 		log.info("Not Valid parameter of language. The value of parameter is " + language);
 		return new EnglishLanguage();

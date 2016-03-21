@@ -4,7 +4,8 @@
 <%@taglib prefix="comp" tagdir="/WEB-INF/tags/"%>
 <%@taglib prefix="my" uri="/WEB-INF/taglibs/taglib.tld"%>
 
-<my:chooseLanguage language="eng" />
+<my:chooseLanguage language="rus" />
+<c:set var="language" scope="session" value="${sessionScope.Language }" />
 <%-- 
 <jsp:useBean id="language" class="model.languages.AbstractLanguage" scope="session"/>
 --%>
@@ -23,7 +24,9 @@
 		border="0" align="left">
 	<div
 		style="font-family: 'Trebuchet'; font-size: 30px; height: 53px; margin-left: 80px;">
-		Bulletin Board "Figa List:)" v.1.0.0</div>
+		<c:out value="${language.bulletinBoard }  " />
+		"<c:out value="${language.boardName }" />"
+	</div>
 </div>
 <%-- Панель отображается если пользователь аутентифицирован --%>
 <c:if test="${sessionScope.authUser!=null}">
