@@ -21,12 +21,12 @@ public class MySqlUserDao implements UserDao {
 	@Override
 	public void create(User user) {
 		try {
-			String sql = "insert into Users values (null, ?, ?, ?,?);'";
+			String sql = "insert into Users values (null, ?, ?, ?,?);";
 			PreparedStatement statement = connection.prepareStatement(sql);
 			statement.setString(1, user.getName());
 			statement.setString(2, user.getEmail());
 			statement.setString(3, user.getLogin());
-			statement.setString(3, user.getPassword());
+			statement.setString(4, user.getPassword());
 			statement.executeUpdate();
 		} catch (SQLException e) {
 			log.error("Failed to create new user " + user.getName());
