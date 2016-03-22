@@ -8,6 +8,5 @@
 
 <my:chooseLanguage language="${param.languageSelect }" />
 <c:set var="langCode" scope="session" value="${param.languageSelect }" />
-<c:out value="${param.languageSelect }" />
 <c:redirect url="/jsp_pages/index.jsp"></c:redirect>
 

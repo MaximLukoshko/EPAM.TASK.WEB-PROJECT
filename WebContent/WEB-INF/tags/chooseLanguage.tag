@@ -1,19 +1,20 @@
 <%@ tag language="java" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%-- 
-	--%>
 <%@ attribute name="processor" required="true" rtexprvalue="true"%>
 
 <form action="${processor }" method="post">
-	<table>
-	</table>
 	<c:out value="${language.language}" />
-	: <select name="languageSelect">
+	: <select name="languageSelect" onchange="this.form.submit()">
 		<option value="eng"
 			<c:if test="${fn:contains(sessionScope.langCode, 'eng')}">selected="selected"</c:if>>English</option>
 		<option value="rus"
 			<c:if test="${fn:contains(sessionScope.langCode, 'rus')}">selected="selected"</c:if>>Русский</option>
-	</select> <input type="submit"
-		value="<c:out value="${language.confirmButtonName }  " />">
+	</select> <br>
+	<%-- 
+	<div style="float: center;">
+		<input type="submit"
+			value="<c:out value="${language.confirmButtonName }  " />">
+	</div>
+	--%>
 </form>

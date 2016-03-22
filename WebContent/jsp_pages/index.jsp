@@ -14,9 +14,6 @@
 </head>
 <body>
 	<%@ include file="static/header.jsp"%>
-	<div style="float: right;">
-		<comp:chooseLanguage processor="doChooseLanguage.jsp" />
-	</div>
 	<h1>
 		<c:out value="${language.listOfAds }" />
 	</h1>
@@ -50,6 +47,7 @@
 						<c:url value="/jsp_pages/user/register.jsp" />
 					</jsp:attribute>
 				</comp:registerButton>
+					
 					
 					
 					

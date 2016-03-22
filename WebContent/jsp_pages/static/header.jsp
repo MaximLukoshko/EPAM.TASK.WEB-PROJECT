@@ -10,6 +10,10 @@
 <c:if test="${sessionScope.langCode==null }">
 	<c:set var="langCode" scope="session" value="eng" />
 </c:if>
+<c:if test="${param.languageSelect!=null }">
+	<my:chooseLanguage language="${param.languageSelect }" />
+	<c:set var="langCode" scope="session" value="${param.languageSelect }" />
+</c:if>
 <my:chooseLanguage language="${sessionScope.langCode }" />
 <c:set var="language" scope="session" value="${sessionScope.Language }" />
 
@@ -36,13 +40,14 @@
 					"
 				</div>
 			</td>
-			<td style="float: right"><c:out value="${language.language}" />:
+			<td style="float: right"><comp:chooseLanguage processor="" /> <%-- 
+			<c:out value="${language.language}" />:
 				<c:if test="${fn:contains(sessionScope.langCode, 'eng')}">English</c:if>
 				<c:if test="${fn:contains(sessionScope.langCode, 'rus')}">Русский</c:if>
+			--%>
 		</tr>
 	</table>
 </div>
-<my:chooseLanguage language="rus" />
 <%-- Панель отображается если пользователь аутентифицирован --%>
 <c:if test="${sessionScope.authUser!=null}">
 	<div style="background-color: #ccc; padding: 5px">

@@ -24,8 +24,6 @@
 <body>
 	<jsp:include page="../static/header.jsp"></jsp:include>
 	<div style="float: right;">
-		<comp:chooseLanguage processor="../doChooseLanguage.jsp" />
-		<p>
 			<comp:newButton />
 	</div>
 	<h1>
