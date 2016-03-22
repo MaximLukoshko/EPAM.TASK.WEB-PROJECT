@@ -33,6 +33,7 @@ public abstract class AbstractLanguage implements ILanguage {
 	protected String EditButtonName = null;
 	protected String DeleteButtonName = null;
 	protected String Language = null;
+	protected String ConfirmButtonName = null;
 
 	public String getBulletinBoard() {
 		return BulletinBoard;
@@ -134,4 +135,9 @@ public abstract class AbstractLanguage implements ILanguage {
 	public String getLanguage() {
 		return Language;
 	}
+
+	public String getConfirmButtonName() {
+		return ConfirmButtonName;
+	}
+
 }

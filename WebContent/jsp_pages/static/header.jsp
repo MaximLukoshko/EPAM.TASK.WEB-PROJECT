@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@taglib prefix="comp" tagdir="/WEB-INF/tags/"%>
 <%@taglib prefix="my" uri="/WEB-INF/taglibs/taglib.tld"%>
 <%-- 
@@ -35,11 +36,9 @@
 					"
 				</div>
 			</td>
-			<td style="float: right">
-				<p align="right">
-					<comp:chooseLanguage/>
-				</p>
-			</td>
+			<td style="float: right"><c:out value="${language.language}" />:
+				<c:if test="${fn:contains(sessionScope.langCode, 'eng')}">English</c:if>
+				<c:if test="${fn:contains(sessionScope.langCode, 'rus')}">Русский</c:if>
 		</tr>
 	</table>
 </div>

@@ -14,6 +14,7 @@ public class RussianLanguage extends AbstractLanguage {
 		ListOfAds = "Список объявлений";
 		PersonalCabinet = "Личный кабинет";
 		RegisterNewUser = "Регистрация нового пользователя";
+		Language = "Язык";
 
 		Subject = "Название";
 		Type = "Тип";
@@ -33,7 +34,7 @@ public class RussianLanguage extends AbstractLanguage {
 		MainButtonName = "Главная";
 		CabinetButtonName = "Кабинет";
 		EditButtonName = "Ред.";
+		ConfirmButtonName="Подтвердить";
 		DeleteButtonName = "Уд.";
-		Language = "Язык";
 	}
 }
