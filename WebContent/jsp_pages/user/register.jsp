@@ -15,9 +15,13 @@
 </head>
 <body>
 	<jsp:include page="../static/header.jsp"></jsp:include>
+	<div style="float: right;">
+		<comp:chooseLanguage processor="../doChooseLanguage.jsp" />
+	</div>
 	<comp:layout1Column>
 		<h1>
-			<c:out value="${language.registerNewUser }" /></h1>
+			<c:out value="${language.registerNewUser }" />
+		</h1>
 		<comp:errorMessage />
 		<my:clearErrorMessage />
 

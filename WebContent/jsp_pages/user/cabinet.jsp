@@ -23,8 +23,14 @@
 </head>
 <body>
 	<jsp:include page="../static/header.jsp"></jsp:include>
-	<comp:newButton />
-	<h1><c:out value="${language.personalCabinet }  " /></h1>
+	<div style="float: right;">
+		<comp:chooseLanguage processor="../doChooseLanguage.jsp" />
+		<p>
+			<comp:newButton />
+	</div>
+	<h1>
+		<c:out value="${language.personalCabinet }  " />
+	</h1>
 	<comp:layout1Column>
 		<my:getAds range="my" var="adListing" sort="${sessionScope.sort}"
 			dir="${sessionScope.dir}" />
