@@ -34,14 +34,15 @@ public class Login extends TagForGettingDaoFactory {
 		try {
 			if (login == null || login.equals("")) {
 				errorMessage = "Login can not be empty!";
-			}
+			} else {
 
-			Connection connection = daoFactory.getConnection();
-			user = daoFactory.getUserDao(connection).read(login);
-			connection.close();
-			if (user == null || !password.equals(user.getPassword())) {
-				errorMessage = "Check login/passowrd";
-				user = null;
+				Connection connection = daoFactory.getConnection();
+				user = daoFactory.getUserDao(connection).read(login);
+				connection.close();
+				if (user == null || !password.equals(user.getPassword())) {
+					errorMessage = "Check login/passowrd";
+					user = null;
+				}
 			}
 		} catch (SQLException e) {
 			log.log(Priority.ERROR, "Exeption: ", e);
