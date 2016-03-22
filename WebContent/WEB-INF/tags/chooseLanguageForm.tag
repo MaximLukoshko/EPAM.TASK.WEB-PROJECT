@@ -11,10 +11,4 @@
 		<option value="rus"
 			<c:if test="${fn:contains(sessionScope.langCode, 'rus')}">selected="selected"</c:if>>Русский</option>
 	</select> <br>
-	<%-- 
-	<div style="float: center;">
-		<input type="submit"
-			value="<c:out value="${language.confirmButtonName }  " />">
-	</div>
-	--%>
 </form>

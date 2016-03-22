@@ -40,7 +40,7 @@
 					"
 				</div>
 			</td>
-			<td style="float: right"><comp:chooseLanguage processor="" /> <%-- 
+			<td style="float: right"><comp:chooseLanguageForm processor="" /> <%-- 
 			<c:out value="${language.language}" />:
 				<c:if test="${fn:contains(sessionScope.langCode, 'eng')}">English</c:if>
 				<c:if test="${fn:contains(sessionScope.langCode, 'rus')}">Русский</c:if>

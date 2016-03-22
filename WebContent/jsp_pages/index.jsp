@@ -13,7 +13,7 @@
 <title>Main Page</title>
 </head>
 <body>
-	<%@ include file="static/header.jsp"%>
+<jsp:include page="static/header.jsp"></jsp:include>
 	<h1>
 		<c:out value="${language.listOfAds }" />
 	</h1>
