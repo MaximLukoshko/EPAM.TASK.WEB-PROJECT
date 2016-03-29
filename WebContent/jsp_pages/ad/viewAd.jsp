@@ -20,9 +20,9 @@
 			<c:out value="${ad.subject }"></c:out>
 		</h1>
 		<div style="text-decoration: italic; font-size: 10px;">
-			Author:
+			${language.author }:
 			<c:out value="${ad.authorName }" />
-			, last-modified date:
+			, ${language.lastModifiedDate }:
 			<fmt:formatDate value="${ad.lastModifiedDate }"
 				pattern="hh:mm:ss dd.MM.yyyy" />
 		</div>
