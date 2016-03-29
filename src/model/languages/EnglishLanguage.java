@@ -15,6 +15,8 @@ public class EnglishLanguage extends AbstractLanguage implements ILanguage {
 		PersonalCabinet = "Personal Cabinet";
 		RegisterNewUser = "Register New User";
 		Language = "Language";
+		ChangingAd = "Changing Ad";
+		CreatingAd = "Creating Ad";
 
 		Subject = "Subject";
 		Type = "Type";
@@ -35,6 +37,6 @@ public class EnglishLanguage extends AbstractLanguage implements ILanguage {
 		CabinetButtonName = "Cabinet";
 		EditButtonName = "Edit";
 		DeleteButtonName = "Delete";
-		ConfirmButtonName="Confirm";
+		ConfirmButtonName = "Confirm";
 	}
 }

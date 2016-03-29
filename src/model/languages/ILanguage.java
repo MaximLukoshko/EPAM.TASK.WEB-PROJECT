@@ -53,4 +53,8 @@ public interface ILanguage {
 	public String getLanguage();
 
 	public String getConfirmButtonName();
+
+	public String getCreatingAd();
+
+	public String getChangingAd();
 }

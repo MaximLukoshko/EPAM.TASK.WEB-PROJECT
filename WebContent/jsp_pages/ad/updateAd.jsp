@@ -5,6 +5,7 @@
 <%@taglib prefix="comp" tagdir="/WEB-INF/tags/"%>
 <%@taglib prefix="my" uri="/WEB-INF/taglibs/taglib.tld"%>
 
+
 <c:choose>
 	<c:when test="${param.id==null || param.id==0}">
 		<c:set var="title" value="Creating ad" scope="page" />
@@ -26,6 +27,18 @@
 <body>
 	<jsp:include page="../static/header.jsp"></jsp:include>
 	<comp:layout1Column>
+		<c:choose>
+			<c:when test="${param.id==null || param.id==0}">
+				<c:set var="title" value="${language.CreatingAd }" scope="page" />
+			</c:when>
+			<c:otherwise>
+				<c:set var="title" value="${language.changingAd }" scope="page" />
+				<c:if test="${sessionScope.errorMessage==null }">
+					<my:getAds id="${param.id }" var="ad" />
+					<c:set var="adData" value="${ad }" scope="session" />
+				</c:if>
+			</c:otherwise>
+		</c:choose>
 		<h1>
 			<c:out value="${title }" />
 		</h1>
@@ -36,12 +49,12 @@
 			</c:if>
 			<table style="width: 100%">
 				<tr>
-					<td>Subject:</td>
+					<td>${language.subject }:</td>
 					<td><input type="text" name="subject" style="width: 90%"
 						value="${sessionScope.adData.subject }"></td>
 				</tr>
 				<tr>
-					<td>Body:</td>
+					<td>${language.body }:</td>
 					<td><textarea name="body" rows="10" style="width: 90%">
 					<c:out value="${sessionScope.adData.body}" />
 								</textarea></td>

@@ -34,6 +34,16 @@ public abstract class AbstractLanguage implements ILanguage {
 	protected String DeleteButtonName = null;
 	protected String Language = null;
 	protected String ConfirmButtonName = null;
+	protected String ChangingAd = null;
+	protected String CreatingAd = null;
+
+	public String getChangingAd() {
+		return ChangingAd;
+	}
+
+	public String getCreatingAd() {
+		return CreatingAd;
+	}
 
 	public String getBulletinBoard() {
 		return BulletinBoard;

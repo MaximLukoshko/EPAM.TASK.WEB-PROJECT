@@ -15,6 +15,9 @@ public class RussianLanguage extends AbstractLanguage {
 		PersonalCabinet = "Личный кабинет";
 		RegisterNewUser = "Регистрация нового пользователя";
 		Language = "Язык";
+		ChangingAd = "Редактирование объявления";
+		CreatingAd = "Создание объявления";
+
 
 		Subject = "Название";
 		Type = "Тип";
@@ -24,7 +27,7 @@ public class RussianLanguage extends AbstractLanguage {
 		Password = "Пароль";
 		Name = "Имя";
 		Email = "E-mail";
-		Body = "ОбЪявление";
+		Body = "Объявление";
 
 		LoginButtonName = "Войти";
 		SignUpButtonName = "Зарегистрироваться";
