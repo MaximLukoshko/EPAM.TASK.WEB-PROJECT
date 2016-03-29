@@ -39,24 +39,21 @@
 				</div>
 			</td>
 			<td style="float: right"><comp:chooseLanguageForm processor="" />
-				<%-- 
-			<c:out value="${language.language}" />:
-				<c:if test="${fn:contains(sessionScope.langCode, 'eng')}">English</c:if>
-				<c:if test="${fn:contains(sessionScope.langCode, 'rus')}">Русский</c:if>
-			--%>
 		</tr>
 	</table>
 </div>
 <%-- Панель отображается если пользователь аутентифицирован --%>
-<c:if test="${sessionScope.authUser!=null}">
-	<div style="background-color: #ccc; padding: 5px">
+<div style="background-color: #ccc; padding: 5px">
+	<comp:mainButton />
+	<c:if test="${sessionScope.authUser!=null}">
 
+		<comp:cabinetButton />
 		<div
 			style="background-color: #ccc; border: 1px solid black; float: right; margin: 1px; margin-top: 1px; padding: 1px 0px; text-align: center; width: 150px;">
 			<a href="<c:url value= "/jsp_pages/user/doLogout.jsp" />"><c:out
 					value="${language.logOutButtonName }  " /></a>
 		</div>
-		<div style="float: left;">
+		<div style="float: right;">
 			<c:out value="${language.youEnteredAs }  " />
 			:
 			<c:out value="${sessionScope.authUser.name}" />
@@ -65,8 +62,6 @@
 			)
 		</div>
 
-		<comp:mainButton />
-		<comp:cabinetButton />
 		<div style="clear: both;"></div>
-	</div>
-</c:if>
+	</c:if>
+</div>
