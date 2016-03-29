@@ -8,7 +8,7 @@
 	<load-on-startup>1</load-on-startup>
 </servlet>
 
-  <welcome-file-list><welcome-file>jsp_pages/index.jsp</welcome-file>
+  <welcome-file-list><welcome-file>jsp_pages/doInitializeLanguage.jsp</welcome-file>
   </welcome-file-list>
   <jsp-config>
   	<taglib>
