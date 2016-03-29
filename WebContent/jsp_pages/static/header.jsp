@@ -4,17 +4,15 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@taglib prefix="comp" tagdir="/WEB-INF/tags/"%>
 <%@taglib prefix="my" uri="/WEB-INF/taglibs/taglib.tld"%>
-<%-- 
-<my:chooseLanguage language="rus" />
---%>
+
 <c:if test="${sessionScope.langCode==null }">
 	<c:set var="langCode" scope="session" value="eng" />
 </c:if>
-<c:if test="${param.languageSelect!=null }">
+<c:if
+	test="${!fn:contains(sessionScope.langCode, param.languageSelect)}">
 	<my:chooseLanguage language="${param.languageSelect }" />
 	<c:set var="langCode" scope="session" value="${param.languageSelect }" />
 </c:if>
-<my:chooseLanguage language="${sessionScope.langCode }" />
 <c:set var="language" scope="session" value="${sessionScope.Language }" />
 
 <%-- Обработать параметр сортировки --%>
@@ -40,24 +38,22 @@
 					"
 				</div>
 			</td>
-			<td style="float: right"><comp:chooseLanguageForm processor="" /> <%-- 
-			<c:out value="${language.language}" />:
-				<c:if test="${fn:contains(sessionScope.langCode, 'eng')}">English</c:if>
-				<c:if test="${fn:contains(sessionScope.langCode, 'rus')}">Русский</c:if>
-			--%>
+			<td style="float: right"><comp:chooseLanguageForm processor="" />
 		</tr>
 	</table>
 </div>
 <%-- Панель отображается если пользователь аутентифицирован --%>
-<c:if test="${sessionScope.authUser!=null}">
-	<div style="background-color: #ccc; padding: 5px">
+<div style="background-color: #ccc; padding: 5px">
+	<comp:mainButton />
+	<c:if test="${sessionScope.authUser!=null}">
 
+		<comp:cabinetButton />
 		<div
 			style="background-color: #ccc; border: 1px solid black; float: right; margin: 1px; margin-top: 1px; padding: 1px 0px; text-align: center; width: 150px;">
 			<a href="<c:url value= "/jsp_pages/user/doLogout.jsp" />"><c:out
 					value="${language.logOutButtonName }  " /></a>
 		</div>
-		<div style="float: left;">
+		<div style="float: right;">
 			<c:out value="${language.youEnteredAs }  " />
 			:
 			<c:out value="${sessionScope.authUser.name}" />
@@ -66,8 +62,6 @@
 			)
 		</div>
 
-		<comp:mainButton />
-		<comp:cabinetButton />
 		<div style="clear: both;"></div>
-	</div>
-</c:if>
+	</c:if>
+</div>
